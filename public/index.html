@@ -187,9 +187,9 @@
     .job:hover .job-title { color: var(--accent); }
     .job-co { margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--muted); }
     .job-meta { margin: 0; font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
-    .list-empty { padding: 2.25rem 1.4rem; }
-    .list-empty h3 { margin: 0 0 0.35rem; font-size: 1.05rem; }
-    .list-empty p { margin: 0; color: var(--muted); max-width: 36ch; }
+    
+    
+    
     .list-foot {
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 0.75rem; margin-top: 1rem; font-size: 0.875rem; color: var(--muted);
@@ -294,6 +294,55 @@
     .foot button { border: 0; background: none; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-weight: 500; }
     .foot button:hover { color: var(--ink); }
 
+
+    .ascii-stage {
+      margin: 1.75rem 0 0;
+      max-width: 28rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.68rem;
+      line-height: 1.15;
+      color: color-mix(in srgb, var(--ink) 28%, transparent);
+      letter-spacing: 0.02em;
+      white-space: pre;
+      user-select: none;
+      overflow: hidden;
+    }
+    .ascii-stage .wave {
+      display: block;
+      animation: drift 8s var(--ease) infinite;
+    }
+    .ascii-stage .wave:nth-child(2) { animation-delay: -2.5s; opacity: 0.85; }
+    .ascii-stage .wave:nth-child(3) { animation-delay: -5s; opacity: 0.7; }
+    @keyframes drift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(8px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ascii-stage .wave { animation: none; }
+    }
+    .list-empty {
+      padding: 2rem 1.4rem 1.6rem;
+    }
+    .list-empty h3 { margin: 0 0 0.4rem; font-size: 1.08rem; letter-spacing: -0.02em; }
+    .list-empty p { margin: 0 0 1.1rem; color: var(--muted); max-width: 38ch; line-height: 1.5; }
+    .list-empty .empty-actions {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .list-empty .empty-query {
+      display: inline-block;
+      margin: 0 0 0.85rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .toast {
       position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%) translateY(12px);
       z-index: 90; opacity: 0; pointer-events: none; background: var(--ink); color: var(--surface);
@@ -347,6 +396,8 @@
           <button type="button" class="btn btn-primary" id="home-search">Search jobs</button>
         </div>
         <p class="place-hint">Type any village, town, island, or area. Matching is free-text - not limited to a fixed list of islands.</p>
+
+        <div class="ascii-stage" id="ascii-art" aria-hidden="true"></div>
 
         <div class="hero-actions">
           <button type="button" class="btn btn-ghost" data-go="jobs">Browse all jobs</button>
@@ -586,7 +637,8 @@
     // token overlap: "nadi denarau" matches "Denarau Island, Nadi"
     var qTokens = q.split(" ").filter(Boolean);
     var locTokens = loc.split(" ").filter(Boolean);
-    return qTokens.every(function (qt) {
+    return qTokens.some(function (qt) {
+      if (qt.length < 2) return false;
       return locTokens.some(function (lt) {
         return lt.indexOf(qt) === 0 || qt.indexOf(lt) === 0 || lt.indexOf(qt) !== -1;
       });
@@ -672,12 +724,46 @@
     var when = j.posted || "";
     return '<button type="button" class="job" data-id="' + esc(j.id) + '"><div><p class="job-title">' + esc(j.title) + '</p><p class="job-co">' + esc(j.company) + (pay ? " · " + esc(pay) : "") + '</p></div><p class="job-meta">' + esc(j.loc) + " · " + esc(j.type) + (when ? "<br>" + esc(when) : "") + "</p></button>";
   }
+  function clearJobFilters() {
+    query = '';
+    locQuery = '';
+    cat = 'All';
+    var hq = document.getElementById('home-q');
+    var hl = document.getElementById('home-loc');
+    var jq = document.getElementById('jobs-q');
+    var jl = document.getElementById('jobs-loc');
+    if (hq) hq.value = '';
+    if (hl) hl.value = '';
+    if (jq) jq.value = '';
+    if (jl) jl.value = '';
+    paintAscii();
+  paintChips();
+    paintJobs();
+    toast('Showing all jobs');
+  }
   function paintJobs() {
     var list = filtered();
     document.getElementById("job-count").textContent = list.length + (list.length === 1 ? " role" : " roles");
     var grid = document.getElementById("job-grid");
     if (!list.length) {
-      grid.innerHTML = '<div class="list-empty"><h3>No roles match</h3><p>Try broader keywords or another place name. Matching is free-text across all of Fiji.</p></div>';
+      var qShow = (query || locQuery || cat !== 'All')
+        ? ('Searching: ' + [query && ('“' + query + '”'), locQuery && ('place “' + locQuery + '”'), cat !== 'All' && cat].filter(Boolean).join(' · '))
+        : '';
+      grid.innerHTML = '<div class="list-empty">'
+        + (qShow ? '<div class="empty-query">' + esc(qShow) + '</div>' : '')
+        + '<h3>No roles match this search</h3>'
+        + '<p>Nothing is stuck. Clear filters to see all jobs, try a broader place name, or post a role if you are hiring.</p>'
+        + '<div class="empty-actions">'
+        + '<button type="button" class="btn btn-primary btn-sm" id="btn-clear-filters">Clear filters</button>'
+        + '<button type="button" class="btn btn-ghost btn-sm" id="btn-empty-browse">Show all jobs</button>'
+        + '<button type="button" class="btn btn-ghost btn-sm" id="btn-empty-post">Post a job</button>'
+        + '</div></div>';
+      var clearBtn = document.getElementById('btn-clear-filters');
+      var browseBtn = document.getElementById('btn-empty-browse');
+      var postBtn = document.getElementById('btn-empty-post');
+      if (clearBtn) clearBtn.onclick = clearJobFilters;
+      if (browseBtn) browseBtn.onclick = clearJobFilters;
+      if (postBtn) postBtn.onclick = function () { go('post'); };
       return;
     }
     grid.innerHTML = list.map(jobRow).join("");
@@ -897,7 +983,25 @@
     toast("Signed out");
   };
 
+
+  function paintAscii() {
+    var el = document.getElementById('ascii-art');
+    if (!el) return;
+    var frames = [
+      '    ~   ~     ~      ~\n  ~~~~~~~~~~~~~~~~~~~~~~~~\n    .  Viti · Work  .\n  ~~~~~~~~~~~~~~~~~~~~~~~~',
+      '   ~     ~   ~    ~\n  ~~~~~~~~~~~~~~~~~~~~~~~~\n    .  Viti · Work  .\n  ~~~~~~~~~~~~~~~~~~~~~~~~',
+      '     ~  ~      ~   ~\n  ~~~~~~~~~~~~~~~~~~~~~~~~\n    .  Viti · Work  .\n  ~~~~~~~~~~~~~~~~~~~~~~~~'
+    ];
+    // professional static+soft motion via CSS on wave lines
+    el.innerHTML =
+      '<span class="wave">    ~    ~      ~     ~</span>\n' +
+      '<span class="wave">  ~~~~~~~~~~~~~~~~~~~~~~~~</span>\n' +
+      '<span class="wave">     ·  islands to work  ·</span>\n' +
+      '<span class="wave">  ~~~~~~~~~~~~~~~~~~~~~~~~</span>';
+  }
+
   /* Boot */
+  paintAscii();
   paintChips();
   paintHome();
   paintJobs();
