@@ -293,33 +293,6 @@
     .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; align-items: center; }
     .foot button { border: 0; background: none; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-weight: 500; }
     .foot button:hover { color: var(--ink); }
-
-
-    .ascii-stage {
-      margin: 1.75rem 0 0;
-      max-width: 28rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.68rem;
-      line-height: 1.15;
-      color: color-mix(in srgb, var(--ink) 28%, transparent);
-      letter-spacing: 0.02em;
-      white-space: pre;
-      user-select: none;
-      overflow: hidden;
-    }
-    .ascii-stage .wave {
-      display: block;
-      animation: drift 8s var(--ease) infinite;
-    }
-    .ascii-stage .wave:nth-child(2) { animation-delay: -2.5s; opacity: 0.85; }
-    .ascii-stage .wave:nth-child(3) { animation-delay: -5s; opacity: 0.7; }
-    @keyframes drift {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(8px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .ascii-stage .wave { animation: none; }
-    }
     .list-empty {
       padding: 2rem 1.4rem 1.6rem;
     }
@@ -341,6 +314,56 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+
+    .home-visual {
+      position: relative;
+      margin: 2rem 0 0.25rem;
+      max-width: 28rem;
+      height: 72px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--line) 90%, var(--ink));
+      background:
+        radial-gradient(ellipse 80% 120% at 20% 80%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%),
+        radial-gradient(ellipse 70% 100% at 85% 20%, color-mix(in srgb, var(--ink) 6%, transparent), transparent 50%),
+        var(--surface);
+    }
+    .home-visual svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .home-visual .horizon {
+      fill: none;
+      stroke: color-mix(in srgb, var(--ink) 18%, transparent);
+      stroke-width: 1.25;
+      stroke-linecap: round;
+    }
+    .home-visual .horizon-soft {
+      stroke: color-mix(in srgb, var(--accent) 35%, transparent);
+      stroke-width: 1;
+      opacity: 0.9;
+      animation: horizonShift 10s ease-in-out infinite;
+    }
+    .home-visual .dot {
+      fill: var(--accent);
+      opacity: 0.55;
+      animation: pulseDot 3.5s ease-in-out infinite;
+    }
+    @keyframes horizonShift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(12px); }
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.35; r: 2.5; }
+      50% { opacity: 0.75; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .home-visual .horizon-soft,
+      .home-visual .dot { animation: none; }
     }
 
     .toast {
@@ -397,7 +420,14 @@
         </div>
         <p class="place-hint">Type any village, town, island, or area. Matching is free-text - not limited to a fixed list of islands.</p>
 
-        <div class="ascii-stage" id="ascii-art" aria-hidden="true"></div>
+        <div class="home-visual" aria-hidden="true">
+          <svg viewBox="0 0 400 72" preserveAspectRatio="none">
+            <path class="horizon" d="M0 48 C 40 40, 80 56, 120 46 S 200 34, 240 44 S 320 58, 400 42" />
+            <path class="horizon horizon-soft" d="M-20 52 C 30 44, 90 60, 150 50 S 250 36, 310 48 S 380 56, 420 44" />
+            <circle class="dot" cx="312" cy="28" r="2.5" />
+          </svg>
+        </div>
+
 
         <div class="hero-actions">
           <button type="button" class="btn btn-ghost" data-go="jobs">Browse all jobs</button>
@@ -736,8 +766,7 @@
     if (hl) hl.value = '';
     if (jq) jq.value = '';
     if (jl) jl.value = '';
-    paintAscii();
-  paintChips();
+    paintChips();
     paintJobs();
     toast('Showing all jobs');
   }
@@ -983,25 +1012,7 @@
     toast("Signed out");
   };
 
-
-  function paintAscii() {
-    var el = document.getElementById('ascii-art');
-    if (!el) return;
-    var frames = [
-      '    ~   ~     ~      ~\n  ~~~~~~~~~~~~~~~~~~~~~~~~\n    .  Viti · Work  .\n  ~~~~~~~~~~~~~~~~~~~~~~~~',
-      '   ~     ~   ~    ~\n  ~~~~~~~~~~~~~~~~~~~~~~~~\n    .  Viti · Work  .\n  ~~~~~~~~~~~~~~~~~~~~~~~~',
-      '     ~  ~      ~   ~\n  ~~~~~~~~~~~~~~~~~~~~~~~~\n    .  Viti · Work  .\n  ~~~~~~~~~~~~~~~~~~~~~~~~'
-    ];
-    // professional static+soft motion via CSS on wave lines
-    el.innerHTML =
-      '<span class="wave">    ~    ~      ~     ~</span>\n' +
-      '<span class="wave">  ~~~~~~~~~~~~~~~~~~~~~~~~</span>\n' +
-      '<span class="wave">     ·  islands to work  ·</span>\n' +
-      '<span class="wave">  ~~~~~~~~~~~~~~~~~~~~~~~~</span>';
-  }
-
   /* Boot */
-  paintAscii();
   paintChips();
   paintHome();
   paintJobs();
