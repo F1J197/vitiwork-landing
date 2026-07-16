@@ -1,823 +1,915 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>VitiWork - Jobs in Fiji</title>
-<meta name="description" content="Fiji job board. Find work, connect with employers, sign in with WhatsApp or Facebook." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-:root {
-  --bg:#f6f5f2; --surface:#fffcf8; --ink:#121211; --muted:#6a6964; --line:#e4e2dc;
-  --accent:#0f5c56; --ease:cubic-bezier(0.32,0.72,0,1); --max:1080px;
-  --font:"Plus Jakarta Sans",system-ui,sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
-body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5;font-size:16px;text-rendering:optimizeLegibility}
-a{color:inherit;text-decoration:none}
-button,input,select,textarea{font:inherit;color:inherit}
-::selection{background:color-mix(in srgb,var(--accent) 22%,transparent)}
-:focus-visible{outline:2px solid color-mix(in srgb,var(--accent) 70%,var(--ink));outline-offset:3px}
-.wrap{width:min(var(--max),calc(100% - 2.5rem));margin-inline:auto}
-@media(min-width:768px){.wrap{width:min(var(--max),calc(100% - 3.5rem))}}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VitiWork - Jobs in Fiji</title>
+  <meta name="description" content="Find work anywhere in Fiji. Search jobs, message employers on WhatsApp, post roles free while we grow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f5f2; --surface: #fffcf8; --ink: #121211; --muted: #6a6964;
+      --line: #e4e2dc; --accent: #0f5c56; --ease: cubic-bezier(0.32, 0.72, 0, 1);
+      --max: 1080px; --font: "Plus Jakarta Sans", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    body {
+      margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg);
+      -webkit-font-smoothing: antialiased; line-height: 1.5; font-size: 16px;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    ::selection { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+    :focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 70%, var(--ink)); outline-offset: 3px; }
+    .wrap { width: min(var(--max), calc(100% - 2.5rem)); margin-inline: auto; }
+    @media (min-width: 768px) { .wrap { width: min(var(--max), calc(100% - 3.5rem)); } }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .demo-banner {
+      background: #121211; color: #fffcf8; text-align: center;
+      padding: 0.45rem 1rem; font-size: 0.78rem; font-weight: 500;
+    }
 
-.nav-shell{position:sticky;top:0;z-index:50;padding:.85rem 0 0;pointer-events:none}
-.nav{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:56px;padding:.4rem .4rem .4rem 1.1rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 28px color-mix(in srgb,var(--ink) 5%,transparent)}
-.brand{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:.95rem;letter-spacing:-.03em}
-.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:.7rem;font-weight:700}
-.nav-links{display:none;gap:1.5rem;font-size:.875rem;font-weight:500;color:var(--muted)}
-.nav-links a:hover{color:var(--ink)}
-@media(min-width:880px){.nav-links{display:flex}}
-.nav-cta{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 1.1rem;border-radius:999px;border:0;background:var(--ink);color:var(--surface);font-size:.875rem;font-weight:600;cursor:pointer}
+    /* Nav */
+    .nav-shell { position: sticky; top: 0; z-index: 50; padding: 0.75rem 0 0; pointer-events: none; }
+    .nav {
+      pointer-events: auto; display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; min-height: 54px; padding: 0.35rem 0.35rem 0.35rem 1rem;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+      box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 5%, transparent);
+    }
+    .brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; letter-spacing: -0.03em; cursor: pointer; border: 0; background: none; }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: 8px; background: var(--ink); color: var(--surface);
+      display: grid; place-items: center; font-size: 0.7rem; font-weight: 700;
+    }
+    .nav-links { display: none; gap: 0.15rem; align-items: center; }
+    @media (min-width: 820px) { .nav-links { display: flex; } }
+    .nav-links button {
+      border: 0; background: transparent; color: var(--muted); font-size: 0.875rem; font-weight: 500;
+      padding: 0.45rem 0.75rem; border-radius: 999px; cursor: pointer;
+    }
+    .nav-links button:hover, .nav-links button.on { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
+    .nav-cta {
+      appearance: none; border: 0; cursor: pointer; min-height: 40px; padding: 0 1rem;
+      border-radius: 999px; background: var(--ink); color: var(--surface); font-size: 0.875rem; font-weight: 600;
+    }
+    .nav-mobile {
+      display: flex; gap: 0.25rem; overflow-x: auto; padding: 0.65rem 0 0; scrollbar-width: none;
+    }
+    .nav-mobile::-webkit-scrollbar { display: none; }
+    @media (min-width: 820px) { .nav-mobile { display: none; } }
+    .nav-mobile button {
+      flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+      font-size: 0.8rem; font-weight: 600; padding: 0.45rem 0.85rem; border-radius: 999px; cursor: pointer;
+    }
+    .nav-mobile button.on { color: var(--ink); border-color: var(--ink); }
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:48px;padding:0 1.35rem;border-radius:999px;border:1px solid transparent;font-size:.9375rem;font-weight:600;cursor:pointer;transition:transform .25s var(--ease),background .35s var(--ease),border-color .35s var(--ease)}
-.btn:active{transform:scale(.98)}
-.btn-primary{background:var(--ink);color:var(--surface)}
-.btn-ghost{background:transparent;color:var(--ink);border-color:color-mix(in srgb,var(--ink) 14%,transparent)}
-.btn-ghost:hover{background:color-mix(in srgb,var(--ink) 3%,transparent)}
-.btn-block{width:100%}
-.btn-sm{min-height:40px;padding:0 1rem;font-size:.875rem}
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      min-height: 48px; padding: 0 1.25rem; border-radius: 999px; border: 1px solid transparent;
+      font-size: 0.9375rem; font-weight: 600; cursor: pointer;
+      transition: transform 0.2s var(--ease), background 0.3s var(--ease);
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--ink); color: var(--surface); }
+    .btn-ghost { background: transparent; color: var(--ink); border-color: color-mix(in srgb, var(--ink) 14%, transparent); }
+    .btn-ghost:hover { background: color-mix(in srgb, var(--ink) 3%, transparent); }
+    .btn-block { width: 100%; }
+    .btn-sm { min-height: 40px; padding: 0 1rem; font-size: 0.875rem; }
 
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+    /* Views */
+    .view { display: none; padding: 1.5rem 0 4rem; min-height: 70dvh; }
+    .view.on { display: block; animation: rise 0.4s var(--ease) both; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .view.on { animation: none; }
+    }
 
-.hero{padding:clamp(3rem,9vw,6.5rem) 0 clamp(2.5rem,6vw,4rem)}
-.hero-inner{max-width:40rem}
-.eyebrow{margin:0 0 1.1rem;font-size:.8125rem;font-weight:500;letter-spacing:.04em;color:var(--muted)}
-.hero h1{margin:0 0 1rem;font-size:clamp(2.5rem,7vw,4rem);font-weight:700;line-height:1.03;letter-spacing:-.045em}
-.hero-lead{margin:0 0 1.5rem;font-size:1.1rem;line-height:1.5;color:var(--muted);max-width:34ch}
-.search-bar{display:grid;gap:.5rem;padding:.4rem;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px color-mix(in srgb,var(--ink) 4%,transparent)}
-@media(min-width:720px){.search-bar{grid-template-columns:1.2fr 1fr auto;align-items:center;padding:.35rem .35rem .35rem .85rem}}
-.search-bar input{width:100%;min-height:48px;border:0;background:transparent;padding:0 .5rem;outline:none;font-size:.975rem;min-width:0}
-@media(min-width:720px){.search-bar input+input{border-left:1px solid var(--line)}}
-@media(max-width:719px){.search-bar input+input{border-top:1px solid var(--line);padding-top:.65rem}}
-.search-bar:focus-within{border-color:color-mix(in srgb,var(--ink) 18%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--ink) 5%,transparent),0 14px 40px color-mix(in srgb,var(--ink) 6%,transparent)}
-.hero-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.15rem}
+    .label {
+      display: block; margin: 0 0 0.55rem; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    h1 {
+      margin: 0 0 0.85rem; font-size: clamp(2.2rem, 6vw, 3.4rem);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1.05;
+    }
+    h2 {
+      margin: 0 0 0.45rem; font-size: clamp(1.4rem, 3vw, 1.75rem);
+      font-weight: 700; letter-spacing: -0.03em;
+    }
+    .lead { margin: 0 0 1.25rem; color: var(--muted); font-size: 1.05rem; max-width: 36ch; line-height: 1.5; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
 
-.section{padding:clamp(2.5rem,7vw,5rem) 0}
-.label{display:block;margin:0 0 .65rem;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.section-head{margin-bottom:1.5rem;max-width:28rem}
-.section-head h2{margin:0 0 .45rem;font-size:clamp(1.45rem,3vw,1.85rem);font-weight:700;letter-spacing:-.035em}
-.section-head p{margin:0;color:var(--muted);font-size:.975rem}
+    /* Search */
+    .search-bar {
+      display: grid; gap: 0.5rem; padding: 0.4rem; max-width: 40rem;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+      box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 4%, transparent);
+    }
+    @media (min-width: 720px) {
+      .search-bar { grid-template-columns: 1.15fr 1fr auto; align-items: center; padding: 0.35rem 0.35rem 0.35rem 0.85rem; }
+      .search-bar input + input { border-left: 1px solid var(--line); }
+    }
+    .search-bar input {
+      width: 100%; min-height: 48px; border: 0; background: transparent;
+      padding: 0 0.5rem; outline: none; min-width: 0; font-size: 0.975rem;
+    }
+    .search-bar:focus-within {
+      border-color: color-mix(in srgb, var(--ink) 18%, var(--line));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 5%, transparent);
+    }
+    .place-hint { margin: 0.45rem 0 0; font-size: 0.78rem; color: var(--muted); max-width: 40rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.15rem; }
 
-.filter-row{display:flex;gap:.15rem;overflow-x:auto;scrollbar-width:none;margin-bottom:1.25rem}
-.filter-row::-webkit-scrollbar{display:none}
-.fchip{flex:0 0 auto;appearance:none;border:0;background:transparent;min-height:36px;padding:0 .85rem;font-size:.875rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:1.5px solid transparent}
-.fchip:hover{color:var(--ink)}
-.fchip.on{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+    /* Home preview */
+    .home-preview { margin-top: 2.75rem; }
+    .home-preview-head {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end;
+      gap: 0.75rem; margin-bottom: 1rem;
+    }
+    .home-preview-head p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .home-strip { display: grid; gap: 0.65rem; }
+    @media (min-width: 800px) { .home-strip { grid-template-columns: 1fr 1fr; } }
+    .home-card {
+      text-align: left; width: 100%; padding: 1.1rem 1.15rem; border-radius: 14px;
+      border: 1px solid var(--line); background: var(--surface); cursor: pointer;
+      transition: border-color 0.25s var(--ease), transform 0.2s var(--ease);
+    }
+    .home-card:hover { border-color: color-mix(in srgb, var(--ink) 22%, var(--line)); }
+    .home-card h3 { margin: 0 0 0.25rem; font-size: 1.02rem; letter-spacing: -0.02em; }
+    .home-card p { margin: 0; font-size: 0.875rem; color: var(--muted); }
+    .home-cta-row {
+      margin-top: 2.5rem; padding: 1.35rem 1.4rem; border-radius: 16px;
+      background: var(--surface); border: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
+    }
+    .home-cta-row strong { display: block; font-size: 1.05rem; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+    .home-cta-row span { color: var(--muted); font-size: 0.9rem; }
 
-.list-shell{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.job{width:100%;display:grid;gap:.35rem;padding:1.25rem;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;cursor:pointer;position:relative;transition:background .3s var(--ease)}
-.job:last-child{border-bottom:0}
-.job:hover{background:color-mix(in srgb,var(--bg) 65%,var(--surface))}
-.job::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ink);transition:width .3s var(--ease)}
-.job:hover::before{width:3px}
-@media(min-width:720px){.job{grid-template-columns:1fr auto;gap:1.5rem;align-items:start;padding:1.4rem 1.6rem}}
-.job-title{margin:0;font-size:1.05rem;font-weight:600;letter-spacing:-.025em}
-.job:hover .job-title{color:var(--accent)}
-.job-co{margin:.25rem 0 0;font-size:.9rem;color:var(--muted)}
-.job-meta{margin:0;font-size:.8125rem;color:var(--muted);line-height:1.45}
-@media(min-width:720px){.job-meta{text-align:right}}
-.list-empty{padding:2.5rem 1.5rem}
-.list-empty h3{margin:0 0 .4rem;font-size:1.05rem;color:var(--ink)}
-.list-empty p{margin:0;color:var(--muted);max-width:36ch}
-.list-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem;margin-top:1.1rem;font-size:.875rem;color:var(--muted)}
+    /* Jobs list */
+    .filter-row {
+      display: flex; gap: 0.15rem; overflow-x: auto; scrollbar-width: none; margin: 0 0 1rem;
+    }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .fchip {
+      flex: 0 0 auto; border: 0; background: transparent; min-height: 36px; padding: 0 0.8rem;
+      font-size: 0.85rem; font-weight: 500; color: var(--muted); cursor: pointer;
+      border-bottom: 1.5px solid transparent;
+    }
+    .fchip.on { color: var(--ink); font-weight: 600; border-bottom-color: var(--ink); }
+    .list-shell { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .job {
+      width: 100%; display: grid; gap: 0.3rem; padding: 1.2rem 1.25rem; text-align: left;
+      border: 0; border-bottom: 1px solid var(--line); background: transparent; cursor: pointer; position: relative;
+    }
+    .job:last-child { border-bottom: 0; }
+    .job:hover { background: color-mix(in srgb, var(--bg) 65%, var(--surface)); }
+    .job::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--ink);
+      transition: width 0.25s var(--ease);
+    }
+    .job:hover::before { width: 3px; }
+    @media (min-width: 720px) {
+      .job { grid-template-columns: 1fr auto; gap: 1.25rem; align-items: start; padding: 1.3rem 1.5rem; }
+      .job-meta { text-align: right; }
+    }
+    .job-title { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; }
+    .job:hover .job-title { color: var(--accent); }
+    .job-co { margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--muted); }
+    .job-meta { margin: 0; font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+    .list-empty { padding: 2.25rem 1.4rem; }
+    .list-empty h3 { margin: 0 0 0.35rem; font-size: 1.05rem; }
+    .list-empty p { margin: 0; color: var(--muted); max-width: 36ch; }
+    .list-foot {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 0.75rem; margin-top: 1rem; font-size: 0.875rem; color: var(--muted);
+    }
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 1rem; align-items: center;
+    }
+    .toolbar input {
+      flex: 1 1 12rem; min-height: 44px; border: 1px solid var(--line); border-radius: 10px;
+      background: var(--surface); padding: 0 0.85rem; outline: none;
+    }
+    .toolbar input:focus { border-color: color-mix(in srgb, var(--ink) 30%, var(--line)); }
 
-.how-list{max-width:40rem}
-.how-row{display:grid;grid-template-columns:2rem 1fr;gap:1rem;padding:1.2rem 0;border-bottom:1px solid var(--line)}
-.how-row:first-child{border-top:1px solid var(--line)}
-.how-n{font-size:.85rem;font-weight:600;color:var(--muted);padding-top:.15rem}
-.how-row h3{margin:0 0 .3rem;font-size:1.05rem;font-weight:600;letter-spacing:-.025em}
-.how-row p{margin:0;font-size:.9375rem;color:var(--muted)}
+    /* Forms */
+    .split { display: grid; gap: 1.75rem; max-width: 40rem; }
+    @media (min-width: 900px) {
+      .split.wide { max-width: none; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 3rem; align-items: start; }
+    }
+    .form-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.25rem;
+    }
+    .field { margin-bottom: 0.9rem; }
+    .field label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .field input, .field select, .field textarea {
+      width: 100%; min-height: 46px; padding: 0.6rem 0.85rem; border: 1px solid var(--line);
+      border-radius: 10px; background: var(--bg); outline: none;
+    }
+    .field textarea { min-height: 88px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: color-mix(in srgb, var(--ink) 30%, var(--line));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 6%, transparent);
+    }
+    .hint { margin-top: 0.25rem; font-size: 0.75rem; color: var(--muted); }
+    .check { display: flex; align-items: center; gap: 0.45rem; font-size: 0.875rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .form-section { margin: 1.1rem 0 0.65rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+    .form-section h3 {
+      margin: 0 0 0.55rem; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted);
+    }
+    .tabs {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.25rem; padding: 0.25rem;
+      background: color-mix(in srgb, var(--ink) 4%, var(--surface)); border-radius: 12px; margin-bottom: 0.9rem;
+    }
+    .tab {
+      min-height: 40px; border: 0; border-radius: 9px; background: transparent; cursor: pointer;
+      font-size: 0.8rem; font-weight: 600; color: var(--muted);
+    }
+    .tab.on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent); }
+    .success-box { display: none; text-align: center; padding: 1.4rem 0.5rem; }
+    .success-box.show { display: block; }
 
-.band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.split{display:grid;gap:2.25rem}
-@media(min-width:900px){.split{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:3.5rem;align-items:start}}
-.split-copy h2{margin:0 0 .65rem;font-size:clamp(1.45rem,3vw,1.85rem);font-weight:700;letter-spacing:-.035em}
-.split-copy p{margin:0 0 1rem;color:var(--muted);font-size:.975rem;max-width:36ch}
-.price-note{font-size:.875rem;color:var(--muted);margin:0}
-.price-note strong{color:var(--ink);font-weight:600}
+    /* Modal */
+    .modal-root {
+      position: fixed; inset: 0; z-index: 80; display: none; align-items: flex-end; justify-content: center;
+      background: color-mix(in srgb, var(--ink) 40%, transparent);
+    }
+    @media (min-width: 640px) { .modal-root { align-items: center; padding: 1.5rem; } }
+    .modal-root.open { display: flex; }
+    .modal {
+      width: min(480px, 100%); max-height: min(90dvh, 760px); overflow: auto;
+      background: var(--surface); border-radius: 20px 20px 0 0;
+      padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0));
+    }
+    @media (min-width: 640px) { .modal { border-radius: 20px; } }
+    .modal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-top span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .x {
+      width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line);
+      background: var(--bg); cursor: pointer;
+    }
+    .modal h3 { margin: 0 0 0.3rem; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.03em; }
+    .modal .sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.85rem; }
+    .jd-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin: 0 0 1rem; }
+    @media (max-width: 520px) { .jd-meta-grid { grid-template-columns: 1fr; } }
+    .jd-meta { background: var(--bg); border-radius: 10px; padding: 0.6rem 0.75rem; }
+    .jd-meta span { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.15rem; }
+    .jd-meta strong { font-size: 0.9rem; font-weight: 600; }
+    .jd-block { margin: 0 0 1rem; }
+    .jd-block h4 { margin: 0 0 0.35rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .jd-block ul { margin: 0; padding-left: 1.1rem; font-size: 0.92rem; }
+    .jd-block li { margin: 0.2rem 0; }
+    .jd-block p { margin: 0; font-size: 0.92rem; color: color-mix(in srgb, var(--ink) 80%, transparent); line-height: 1.55; }
+    .note { font-size: 0.8rem; color: var(--muted); background: var(--bg); border-radius: 10px; padding: 0.7rem 0.85rem; margin-bottom: 0.9rem; }
+    .modal-actions { display: grid; gap: 0.4rem; }
+    .modal-actions .btn-ghost { border-color: transparent; color: var(--muted); }
 
-.form-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:1.35rem}
-.field{margin-bottom:1rem}
-.field label{display:block;font-size:.8125rem;font-weight:600;margin-bottom:.35rem}
-.field input,.field select,.field textarea{width:100%;min-height:48px;padding:.65rem .9rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);outline:none}
-.field textarea{min-height:90px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:color-mix(in srgb,var(--ink) 35%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--ink) 6%,transparent)}
-.hint{margin-top:.3rem;font-size:.75rem;color:var(--muted)}
-.check{display:flex;align-items:center;gap:.5rem;font-size:.875rem;color:var(--muted);margin-bottom:.45rem}
-.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.25rem;padding:.25rem;background:color-mix(in srgb,var(--ink) 4%,var(--surface));border-radius:12px;margin-bottom:1rem}
-.tab{min-height:40px;border:0;border-radius:9px;background:transparent;cursor:pointer;font-size:.8125rem;font-weight:600;color:var(--muted)}
-.tab.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 6%,transparent)}
-.step-hint{margin:0 0 1rem;font-size:.8125rem;color:var(--muted)}
-.success-box{display:none;text-align:center;padding:1.5rem .5rem}
-.success-box.show{display:block}
-.success-box h3{margin:0 0 .4rem;font-size:1.15rem}
-.success-box p{margin:0;color:var(--muted)}
+    .fold { border-top: 1px solid var(--line); }
+    .fold:last-child { border-bottom: 1px solid var(--line); }
+    .fold > summary {
+      list-style: none; cursor: pointer; padding: 1rem 0; font-weight: 600;
+      display: flex; justify-content: space-between; gap: 1rem;
+    }
+    .fold > summary::-webkit-details-marker { display: none; }
+    .fold-body { padding: 0 0 1.15rem; color: var(--muted); font-size: 0.92rem; }
+    .fold-body a { color: var(--ink); font-weight: 600; border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
 
-.learn{padding:clamp(2.5rem,6vw,4rem) 0 clamp(3.5rem,8vw,5.5rem)}
-.fold{border-top:1px solid var(--line)}
-.fold:last-child{border-bottom:1px solid var(--line)}
-.fold>summary{list-style:none;cursor:pointer;padding:1.15rem 0;font-size:1rem;font-weight:600;display:flex;justify-content:space-between;gap:1rem}
-.fold>summary::-webkit-details-marker{display:none}
-.fold>summary span{font-weight:400;font-size:1.25rem;color:var(--muted)}
-.fold-body{padding:0 0 1.35rem;color:var(--muted);font-size:.9375rem}
-.fold-body a{color:var(--ink);font-weight:600;border-bottom:1px solid color-mix(in srgb,var(--ink) 18%,transparent)}
-.res-list{margin:0;padding:0;list-style:none}
-.res-list li{padding:.7rem 0;border-bottom:1px solid var(--line)}
-.res-list strong{color:var(--ink)}
+    footer {
+      border-top: 1px solid var(--line); padding: 1.5rem 0 calc(1.5rem + env(safe-area-inset-bottom, 0));
+      font-size: 0.8rem; color: var(--muted);
+    }
+    .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; align-items: center; }
+    .foot button { border: 0; background: none; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-weight: 500; }
+    .foot button:hover { color: var(--ink); }
 
-footer{padding:2rem 0 calc(2rem + env(safe-area-inset-bottom,0));border-top:1px solid var(--line)}
-.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.8125rem;color:var(--muted)}
-
-.modal-root{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:color-mix(in srgb,var(--ink) 40%,transparent)}
-@media(min-width:640px){.modal-root{align-items:center;padding:1.5rem}}
-.modal-root.open{display:flex}
-.modal{width:min(440px,100%);max-height:min(90dvh,720px);overflow:auto;background:var(--surface);border-radius:20px 20px 0 0;padding:1.35rem 1.35rem calc(1.35rem + env(safe-area-inset-bottom,0))}
-@media(min-width:640px){.modal{border-radius:20px}}
-.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.15rem}
-.modal-top span{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.x{width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--bg);cursor:pointer}
-.modal h3{margin:0 0 .35rem;font-size:1.4rem;font-weight:700;letter-spacing:-.035em}
-.modal .sub{color:var(--muted);font-size:.9375rem;margin-bottom:.65rem}
-.modal .payline{font-size:.9rem;color:var(--muted);margin:0 0 1rem}
-.modal .note{font-size:.8125rem;color:var(--muted);background:var(--bg);border-radius:10px;padding:.75rem .9rem;margin-bottom:1rem}
-.modal .desc{white-space:pre-line;font-size:.9375rem;color:color-mix(in srgb,var(--ink) 78%,transparent);line-height:1.55;margin-bottom:1.4rem}
-.modal-actions{display:grid;gap:.45rem}
-.modal-actions .btn-ghost{border-color:transparent;background:transparent;color:var(--muted);font-weight:500}
-
-.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(12px);z-index:90;opacity:0;pointer-events:none;background:var(--ink);color:var(--surface);padding:.7rem 1.1rem;border-radius:999px;font-size:.875rem;font-weight:600;transition:.4s var(--ease);max-width:min(340px,calc(100% - 2rem));text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-.jd-block{margin:0 0 1.1rem}
-.jd-block h4{margin:0 0 .4rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.jd-block ul{margin:0;padding-left:1.15rem;color:color-mix(in srgb,var(--ink) 78%,transparent);font-size:.9375rem}
-.jd-block li{margin:.25rem 0}
-.jd-block p{margin:0;color:color-mix(in srgb,var(--ink) 78%,transparent);font-size:.9375rem;line-height:1.55}
-.jd-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin:0 0 1.15rem}
-@media(max-width:520px){.jd-meta-grid{grid-template-columns:1fr}}
-.jd-meta{background:var(--bg);border-radius:10px;padding:.65rem .8rem}
-.jd-meta span{display:block;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
-.jd-meta strong{font-size:.9rem;font-weight:600;color:var(--ink)}
-.form-section{margin:1.25rem 0 .75rem;padding-top:1rem;border-top:1px solid var(--line)}
-.form-section h3{margin:0 0 .65rem;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-
-</style>
+    .toast {
+      position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%) translateY(12px);
+      z-index: 90; opacity: 0; pointer-events: none; background: var(--ink); color: var(--surface);
+      padding: 0.65rem 1.05rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600;
+      transition: 0.35s var(--ease); max-width: min(340px, calc(100% - 2rem)); text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
 </head>
 <body>
-<div class="demo-banner" style="background:#121211;color:#fffcf8;text-align:center;padding:.5rem 1rem;font-size:.8rem;font-weight:500">Demo / free trial UI. Data stays on this device. Not production auth.</div>
+  <div class="demo-banner">Demo UI. Data stays on this device until a real backend is connected. Not production login.</div>
+  <div class="toast" id="toast" role="status"></div>
+  <a class="sr-only" href="#view-jobs">Skip to jobs</a>
 
-<!--
-JOB LISTING STANDARDS (Indeed/Seek-class):
-Required: title, company, location, job type, role summary, responsibilities, requirements (must-have), how to apply.
-Recommended: pay range, hours/shifts, benefits, preferred skills, start date, citizenship/licence notes.
-Keep must-haves to ~5-10 bullets. Plain language.
--->
-
-<!-- DESIGN READ: Seek-for-Fiji job board. Trust-first. Free-text location. WA/FB auth demo. VARIANCE 5 MOTION 3 DENSITY 3. -->
-<a class="sr-only" href="#roles">Skip to jobs</a>
-<div class="toast" id="toast" role="status"></div>
-
-<div class="nav-shell">
-  <div class="wrap">
-    <header class="nav">
-      <a class="brand" href="#top" id="top"><span class="brand-mark">VW</span> VitiWork</a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#roles">Jobs</a>
-        <a href="#post">Post</a>
-        <a href="#account">Account</a>
-        <a href="#learn">Learn</a>
-      </nav>
-      <button type="button" class="nav-cta" id="nav-account-btn">Sign in</button>
-    </header>
-  </div>
-</div>
-
-<main>
-  <section class="hero">
+  <div class="nav-shell">
     <div class="wrap">
-      <div class="hero-inner reveal">
-        <p class="eyebrow">Jobs in Fiji</p>
+      <header class="nav">
+        <button type="button" class="brand" data-go="home" aria-label="VitiWork home">
+          <span class="brand-mark">VW</span> VitiWork
+        </button>
+        <nav class="nav-links" aria-label="Primary">
+          <button type="button" data-go="home">Home</button>
+          <button type="button" data-go="jobs">Jobs</button>
+          <button type="button" data-go="post">Post a job</button>
+          <button type="button" data-go="account">Account</button>
+        </nav>
+        <button type="button" class="nav-cta" id="nav-cta">Sign in</button>
+      </header>
+      <div class="nav-mobile" aria-label="Mobile sections">
+        <button type="button" data-go="home">Home</button>
+        <button type="button" data-go="jobs">Jobs</button>
+        <button type="button" data-go="post">Post</button>
+        <button type="button" data-go="account">Account</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HOME -->
+    <section class="view on" id="view-home" data-view="home">
+      <div class="wrap">
+        <p class="label">Jobs in Fiji</p>
         <h1>Find work that moves you forward.</h1>
-        <p class="hero-lead">Search roles anywhere in Fiji, connect with employers, and take the next step.</p>
+        <p class="lead">Search roles from any island or town. Message employers on WhatsApp. Simple as a good job board should be.</p>
+
         <div class="search-bar">
-          <label class="sr-only" for="q">Keywords</label>
-          <input id="q" type="search" placeholder="Job title, skill, or company" />
-          <label class="sr-only" for="q-loc">Location</label>
-          <input id="q-loc" type="search" list="fiji-places" placeholder="Any place in Fiji" />
-          <button type="button" class="btn btn-primary" id="q-go">Search</button>
+          <label class="sr-only" for="home-q">Keywords</label>
+          <input id="home-q" type="search" placeholder="Job title, skill, or company" />
+          <label class="sr-only" for="home-loc">Place in Fiji</label>
+          <input id="home-loc" type="search" placeholder="Any place in Fiji" autocomplete="off" />
+          <button type="button" class="btn btn-primary" id="home-search">Search jobs</button>
         </div>
-        <datalist id="fiji-places">
-          <option value="Suva"></option><option value="Nadi"></option><option value="Lautoka"></option>
-          <option value="Labasa"></option><option value="Ba"></option><option value="Sigatoka"></option>
-          <option value="Taveuni"></option><option value="Savusavu"></option><option value="Nasinu"></option>
-          <option value="Nausori"></option><option value="Denarau"></option><option value="Pacific Harbour"></option>
-          <option value="Coral Coast"></option><option value="Rakiraki"></option><option value="Levuka"></option>
-        </datalist>
+        <p class="place-hint">Type any village, town, island, or area. Matching is free-text - not limited to a fixed list of islands.</p>
+
         <div class="hero-actions">
-          <a class="btn btn-ghost" href="#roles">See all jobs</a>
-          <a class="btn btn-ghost" href="#post">Advertise a job</a>
+          <button type="button" class="btn btn-ghost" data-go="jobs">Browse all jobs</button>
+          <button type="button" class="btn btn-ghost" data-go="post">I am hiring</button>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section" id="roles" style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="label">Jobs</span>
-        <h2>Open roles</h2>
-        <p>Any place in Fiji can appear here. Tap a role to connect.</p>
-      </div>
-      <div class="filter-row reveal" id="filters" role="toolbar" aria-label="Category"></div>
-      <div class="list-shell reveal" id="job-grid"></div>
-      <div class="list-foot reveal">
-        <span id="job-count">0 roles</span>
-        <a class="btn btn-ghost btn-sm" href="#post">Post a job</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="how">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="label">How it works</span>
-        <h2>Search. Connect. Start.</h2>
-      </div>
-      <div class="how-list reveal">
-        <div class="how-row"><div class="how-n">1</div><div><h3>Search jobs</h3><p>By title, company, category, or any place in Fiji.</p></div></div>
-        <div class="how-row"><div class="how-n">2</div><div><h3>Connect</h3><p>Message employers on WhatsApp after you sign in.</p></div></div>
-        <div class="how-row"><div class="how-n">3</div><div><h3>Next step</h3><p>Interviews, shifts, careers. Employers can list free to start.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section band" id="post">
-    <div class="wrap split">
-      <div class="split-copy reveal">
-        <span class="label">Employers</span>
-        <h2>Advertise a job</h2>
-        <p>Post for any location in Fiji. Sign in first. Free for 14 days (capped free posts), then from FJ$15.</p>
-        <p class="price-note" id="post-gate-note">Sign in to publish a listing.</p>
-      </div>
-      <div class="form-card reveal">
-                <form id="post-form">
-          <div class="form-section" style="border:0;padding-top:0;margin-top:0"><h3>Basics</h3></div>
-          <div class="field"><label for="p-title">Job title</label><input id="p-title" required placeholder="e.g. Sales Assistant" /><div class="hint">Use a title people actually search for.</div></div>
-          <div class="field"><label for="p-company">Company name</label><input id="p-company" required placeholder="Legal or trading name" /></div>
-          <div class="field"><label for="p-loc">Location</label><input id="p-loc" required list="fiji-places" placeholder="Any town, island, or area in Fiji" /><div class="hint">Be specific where you can (e.g. Denarau, Nadi).</div></div>
-          <div class="field"><label for="p-cat">Category</label>
-            <select id="p-cat"><option>Hospitality</option><option>Retail</option><option>Construction</option><option>Agriculture</option><option>Drivers</option><option>BPO</option><option>IT</option><option>Office</option><option>Tourism</option><option>Trades</option><option>Other</option></select>
-          </div>
-          <div class="field"><label for="p-type">Job type</label>
-            <select id="p-type"><option>Full-time</option><option>Part-time</option><option>Casual</option><option>Contract</option><option>Seasonal</option></select>
-          </div>
-          <div class="field"><label for="p-pay">Pay range</label><input id="p-pay" placeholder="e.g. FJ$800-1,000/mo or FJ$7.50/hr" /><div class="hint">Applicants look for this. A range is fine.</div></div>
-          <div class="field"><label for="p-hours">Hours / shifts</label><input id="p-hours" placeholder="e.g. Mon-Fri 8am-5pm, weekends on roster" /></div>
-          <div class="field"><label for="p-start">Start date</label><input id="p-start" placeholder="e.g. Immediate, or from 1 August" /></div>
-          <div class="form-section"><h3>About the role</h3></div>
-          <div class="field"><label for="p-summary">Role summary</label><textarea id="p-summary" rows="3" required placeholder="2-4 sentences: what the job is and who you are hiring for"></textarea></div>
-          <div class="field"><label for="p-resp">Responsibilities</label><textarea id="p-resp" rows="4" required placeholder="One responsibility per line"></textarea><div class="hint">One item per line. Aim for 5-10 clear bullets.</div></div>
-          <div class="field"><label for="p-req">Requirements (must-have)</label><textarea id="p-req" rows="4" required placeholder="One requirement per line"></textarea><div class="hint">Only true must-haves.</div></div>
-          <div class="field"><label for="p-pref">Preferred (nice to have)</label><textarea id="p-pref" rows="2" placeholder="Optional: one item per line"></textarea></div>
-          <div class="field"><label for="p-benefits">Benefits</label><textarea id="p-benefits" rows="2" placeholder="e.g. Meals, transport, housing, staff discount, training"></textarea></div>
-          <div class="form-section"><h3>How to apply</h3></div>
-          <div class="field"><label for="p-phone">WhatsApp for applicants</label><input id="p-phone" type="tel" required placeholder="+679 ..." /></div>
-          <label class="check"><input type="checkbox" id="p-housing" /> Housing or meals included</label>
-          <label class="check"><input type="checkbox" id="p-nocv" /> No CV required to start the chat</label>
-          <label class="check" style="margin-bottom:1rem"><input type="checkbox" id="p-citizen" /> Fijian citizenship required</label>
-          <button type="submit" class="btn btn-primary btn-block">Post this job</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="account">
-    <div class="wrap split">
-      <div class="split-copy reveal">
-        <span class="label">Account</span>
-        <h2>Sign in the Fiji way</h2>
-        <p>WhatsApp or Facebook - how people already connect. Update your profile anytime. Demo only stores data on this device.</p>
-        <p class="price-note" id="account-status">You are signed out.</p>
-      </div>
-      <div class="form-card reveal">
-        <div id="auth-out">
-          <p class="step-hint">Create or open your account</p>
-          <button type="button" class="btn btn-primary btn-block" id="btn-wa-auth" style="margin-bottom:.5rem">Continue with WhatsApp</button>
-          <button type="button" class="btn btn-ghost btn-block" id="btn-fb-auth">Continue with Facebook</button>
-          <p class="hint" style="margin-top:1rem;text-align:center">Live product would use WhatsApp Cloud API and Facebook Login. This demo simulates the same steps.</p>
-        </div>
-        <div id="auth-wa" hidden>
-          <p class="step-hint">WhatsApp verification (demo)</p>
-          <div class="field"><label for="auth-phone">WhatsApp number</label><input id="auth-phone" type="tel" placeholder="+679 ..." /></div>
-          <div class="field" id="otp-field" hidden><label for="auth-otp">Code</label><input id="auth-otp" placeholder="Demo code: 123456" /><div class="hint">Use 123456</div></div>
-          <button type="button" class="btn btn-primary btn-block" id="btn-wa-send">Send code</button>
-          <button type="button" class="btn btn-primary btn-block" id="btn-wa-verify" hidden style="margin-top:.5rem">Verify and sign in</button>
-          <button type="button" class="btn btn-ghost btn-block" id="btn-auth-back" style="margin-top:.5rem">Back</button>
-        </div>
-        <div id="auth-in" hidden>
-          <p class="step-hint">Your profile</p>
-          <div class="field"><label for="prof-name">Display name</label><input id="prof-name" /></div>
-          <div class="field"><label for="prof-phone">WhatsApp</label><input id="prof-phone" type="tel" /></div>
-          <div class="field"><label for="prof-loc">Location (anywhere in Fiji)</label><input id="prof-loc" list="fiji-places" placeholder="Town, island, or area" /></div>
-          <div class="field"><label for="prof-role">I am mainly</label>
-            <select id="prof-role"><option value="seeker">Looking for work</option><option value="employer">Hiring</option><option value="both">Both</option></select>
-          </div>
-          <div class="field"><label for="prof-about">About / skills</label><textarea id="prof-about" rows="3" placeholder="Hospitality, available weekends..."></textarea></div>
-          <button type="button" class="btn btn-primary btn-block" id="btn-save-profile">Save profile</button>
-          <button type="button" class="btn btn-ghost btn-block" id="btn-signout" style="margin-top:.5rem">Sign out</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section band" id="waitlist">
-    <div class="wrap split">
-      <div class="split-copy reveal">
-        <span class="label">Waitlist</span>
-        <h2>Get launch updates</h2>
-        <p>Optional research questions so we can improve the board for Fiji.</p>
-      </div>
-      <div class="form-card reveal">
-        <div class="tabs">
-          <button type="button" class="tab on" data-tab="seeker">Seeker</button>
-          <button type="button" class="tab" data-tab="employer">Employer</button>
-          <button type="button" class="tab" data-tab="returnee">Returnee</button>
-        </div>
-        <p class="step-hint" id="step-label">Step 1 of 2</p>
-        <form id="wait-form">
-          <input type="hidden" id="role-field" value="seeker" />
-          <div id="step-1">
-            <div class="field"><label for="name">First name</label><input id="name" required /></div>
-            <div class="field"><label for="phone">WhatsApp</label><input id="phone" type="tel" required /></div>
-            <div class="field"><label for="city">Place in Fiji</label><input id="city" list="fiji-places" required placeholder="Any place" /></div>
-            <div class="field" id="field-business" hidden><label for="business">Business name</label><input id="business" /></div>
-            <button type="button" class="btn btn-primary btn-block" id="next-step">Continue</button>
-          </div>
-          <div id="step-2" hidden>
-            <div id="q-seeker">
-              <div class="field"><label for="s1">Where do you find work now?</label>
-                <select id="s1"><option>Facebook groups</option><option>Friends and family</option><option>Job websites</option><option>Walk-in</option></select></div>
-              <div class="field"><label for="s3">Prefer apply how?</label>
-                <select id="s3"><option>WhatsApp</option><option>Phone call</option><option>Email form</option></select></div>
+        <div class="home-preview">
+          <div class="home-preview-head">
+            <div>
+              <p class="label" style="margin-bottom:0.35rem">Latest roles</p>
+              <h2 style="margin:0">A few openings right now</h2>
             </div>
-            <div id="q-employer" hidden>
-              <div class="field"><label for="e1">How do you hire today?</label>
-                <select id="e1"><option>Facebook</option><option>Word of mouth</option><option>Job websites</option></select></div>
-              <div class="field"><label for="e3">Post free 7 days?</label>
-                <select id="e3"><option>Yes</option><option>Maybe</option><option>No</option></select></div>
-            </div>
-            <div id="q-returnee" hidden>
-              <div class="field"><label for="r1">You are</label>
-                <select id="r1"><option>Fijian returning</option><option>Specialist exploring Fiji</option></select></div>
-            </div>
-            <button type="button" class="btn btn-ghost btn-block" id="back-step" style="margin-bottom:.5rem">Back</button>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-go="jobs">See all</button>
           </div>
-        </form>
-        <div class="success-box" id="form-success"><h3>Thank you</h3><p id="success-copy"></p>
-          <button type="button" class="btn btn-ghost" style="margin-top:1rem" id="reset-wait">Add another</button></div>
+          <div class="home-strip" id="home-preview"></div>
+        </div>
+
+        <div class="home-cta-row">
+          <div>
+            <strong>Hiring in Fiji?</strong>
+            <span>Post on a dedicated page - keep the home clean for job seekers.</span>
+          </div>
+          <button type="button" class="btn btn-primary" data-go="post">Advertise a job</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section class="view" id="view-jobs" data-view="jobs">
+      <div class="wrap">
+        <p class="label">Jobs</p>
+        <h2>Open roles across Fiji</h2>
+        <p class="muted" style="margin:0 0 1rem;max-width:40ch">Filter by what and where. Place search matches any text employers enter - islands, towns, deltas, resorts.</p>
+
+        <div class="toolbar">
+          <input id="jobs-q" type="search" placeholder="Keywords" />
+          <input id="jobs-loc" type="search" placeholder="Any place in Fiji" autocomplete="off" />
+          <button type="button" class="btn btn-primary btn-sm" id="jobs-search">Search</button>
+        </div>
+        <div class="filter-row" id="filters" role="toolbar" aria-label="Category"></div>
+        <div class="list-shell" id="job-grid"></div>
+        <div class="list-foot">
+          <span id="job-count">0 roles</span>
+          <button type="button" class="btn btn-ghost btn-sm" data-go="post">Post a job</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- POST (own page-layer) -->
+    <section class="view" id="view-post" data-view="post">
+      <div class="wrap split wide">
+        <div>
+          <p class="label">Employers</p>
+          <h2>Advertise a job</h2>
+          <p class="lead">Your own space to list a role. Sign in first. Free while we grow (capped posts, 14 days).</p>
+          <p class="muted" id="post-gate-note">Sign in from Account to publish.</p>
+          <p class="muted" style="margin-top:1rem">Location is free text - e.g. Ovalau, Kadavu, Yasawa, Labasa, or a village name.</p>
+        </div>
+        <div class="form-card">
+          <form id="post-form">
+            <div class="form-section" style="border:0;padding-top:0;margin-top:0"><h3>Basics</h3></div>
+            <div class="field"><label for="p-title">Job title</label><input id="p-title" required placeholder="e.g. Sales Assistant" /></div>
+            <div class="field"><label for="p-company">Company name</label><input id="p-company" required /></div>
+            <div class="field">
+              <label for="p-loc">Location</label>
+              <input id="p-loc" required placeholder="Any island, town, or area in Fiji" autocomplete="off" />
+              <div class="hint">Not limited to a preset list. Type the real place.</div>
+            </div>
+            <div class="field"><label for="p-cat">Category</label>
+              <select id="p-cat"><option>Hospitality</option><option>Retail</option><option>Construction</option><option>Agriculture</option><option>Drivers</option><option>BPO</option><option>IT</option><option>Office</option><option>Tourism</option><option>Trades</option><option>Other</option></select>
+            </div>
+            <div class="field"><label for="p-type">Job type</label>
+              <select id="p-type"><option>Full-time</option><option>Part-time</option><option>Casual</option><option>Contract</option><option>Seasonal</option></select>
+            </div>
+            <div class="field"><label for="p-pay">Pay range</label><input id="p-pay" placeholder="FJ$800-1,000/mo or FJ$7.50/hr" /><div class="hint">Helpful for applicants when you can share it.</div></div>
+            <div class="field"><label for="p-hours">Hours / shifts</label><input id="p-hours" placeholder="e.g. rostered weekends" /></div>
+            <div class="field"><label for="p-start">Start date</label><input id="p-start" placeholder="e.g. Immediate" /></div>
+
+            <div class="form-section"><h3>About the role</h3></div>
+            <div class="field"><label for="p-summary">Role summary</label><textarea id="p-summary" required rows="3" placeholder="2-4 sentences"></textarea></div>
+            <div class="field"><label for="p-resp">Responsibilities</label><textarea id="p-resp" required rows="4" placeholder="One per line"></textarea></div>
+            <div class="field"><label for="p-req">Requirements (must-have)</label><textarea id="p-req" required rows="4" placeholder="One per line"></textarea></div>
+            <div class="field"><label for="p-pref">Preferred</label><textarea id="p-pref" rows="2" placeholder="Optional, one per line"></textarea></div>
+            <div class="field"><label for="p-benefits">Benefits</label><textarea id="p-benefits" rows="2" placeholder="Meals, housing, training..."></textarea></div>
+
+            <div class="form-section"><h3>How to apply</h3></div>
+            <div class="field"><label for="p-phone">WhatsApp for applicants</label><input id="p-phone" type="tel" required placeholder="+679 ..." /></div>
+            <label class="check"><input type="checkbox" id="p-housing" /> Housing or meals included</label>
+            <label class="check"><input type="checkbox" id="p-nocv" /> No CV required to start the chat</label>
+            <label class="check" style="margin-bottom:1rem"><input type="checkbox" id="p-citizen" /> Fijian citizenship required</label>
+            <button type="submit" class="btn btn-primary btn-block">Post this job</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section class="view" id="view-account" data-view="account">
+      <div class="wrap split wide">
+        <div>
+          <p class="label">Account</p>
+          <h2>Sign in the Fiji way</h2>
+          <p class="lead">WhatsApp or Facebook for access. Update your profile anytime. Demo only - data stays on this device.</p>
+          <p class="muted" id="account-status">You are signed out.</p>
+        </div>
+        <div class="form-card">
+          <div id="auth-out">
+            <p class="muted" style="margin:0 0 0.9rem">Create or open your account</p>
+            <button type="button" class="btn btn-primary btn-block" id="btn-wa-auth" style="margin-bottom:0.5rem">Continue with WhatsApp</button>
+            <button type="button" class="btn btn-ghost btn-block" id="btn-fb-auth">Continue with Facebook</button>
+            <p class="hint" style="margin-top:1rem;text-align:center">Live product uses real Meta login. This demo simulates the flow.</p>
+          </div>
+          <div id="auth-wa" hidden>
+            <div class="field"><label for="auth-phone">WhatsApp number</label><input id="auth-phone" type="tel" placeholder="+679 ..." /></div>
+            <div class="field" id="otp-field" hidden><label for="auth-otp">Code</label><input id="auth-otp" placeholder="Demo: 123456" /></div>
+            <button type="button" class="btn btn-primary btn-block" id="btn-wa-send">Send code</button>
+            <button type="button" class="btn btn-primary btn-block" id="btn-wa-verify" hidden style="margin-top:0.5rem">Verify and sign in</button>
+            <button type="button" class="btn btn-ghost btn-block" id="btn-auth-back" style="margin-top:0.5rem">Back</button>
+          </div>
+          <div id="auth-in" hidden>
+            <div class="field"><label for="prof-name">Display name</label><input id="prof-name" /></div>
+            <div class="field"><label for="prof-phone">WhatsApp</label><input id="prof-phone" type="tel" /></div>
+            <div class="field"><label for="prof-loc">Location (anywhere in Fiji)</label><input id="prof-loc" placeholder="Town, island, or area" autocomplete="off" /></div>
+            <div class="field"><label for="prof-role">I am mainly</label>
+              <select id="prof-role"><option value="seeker">Looking for work</option><option value="employer">Hiring</option><option value="both">Both</option></select>
+            </div>
+            <div class="field"><label for="prof-about">About / skills</label><textarea id="prof-about" rows="3"></textarea></div>
+            <button type="button" class="btn btn-primary btn-block" id="btn-save-profile">Save profile</button>
+            <button type="button" class="btn btn-ghost btn-block" id="btn-signout" style="margin-top:0.5rem">Sign out</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARN (small, secondary) -->
+    <section class="view" id="view-learn" data-view="learn">
+      <div class="wrap" style="max-width:40rem">
+        <p class="label">Learn</p>
+        <h2>Helpful links</h2>
+        <details class="fold" open>
+          <summary>Public resources</summary>
+          <div class="fold-body">
+            <p><a href="https://www.recruitmentportal.gov.fj/" target="_blank" rel="noopener">Government vacancies</a></p>
+            <p><a href="https://www.statsfiji.gov.fj/" target="_blank" rel="noopener">Fiji Bureau of Statistics</a></p>
+            <p><a href="https://www.rbf.gov.fj/" target="_blank" rel="noopener">Reserve Bank of Fiji</a></p>
+            <p><a href="https://myfnpf.to/" target="_blank" rel="noopener">FNPF</a></p>
+          </div>
+        </details>
+        <details class="fold">
+          <summary>Site map</summary>
+          <div class="fold-body">
+            <p><strong style="color:var(--ink)">Home</strong> - promise + search + preview</p>
+            <p><strong style="color:var(--ink)">Jobs</strong> - full list and filters</p>
+            <p><strong style="color:var(--ink)">Post</strong> - employer listing form only</p>
+            <p><strong style="color:var(--ink)">Account</strong> - sign in and profile</p>
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <button type="button" class="brand" data-go="home" style="padding:0"><span class="brand-mark">VW</span> VitiWork</button>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <button type="button" data-go="jobs">Jobs</button>
+        <button type="button" data-go="post">Post</button>
+        <button type="button" data-go="account">Account</button>
+        <button type="button" data-go="learn">Learn</button>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section class="learn" id="learn">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="label">Learn more</span><h2>When you want context</h2></div>
-      <details class="fold reveal"><summary>Public resources <span>+</span></summary>
-        <div class="fold-body">
-          <ul class="res-list">
-            <li><strong><a href="https://www.recruitmentportal.gov.fj/" target="_blank" rel="noopener">Government vacancies</a></strong> - official public roles</li>
-            <li><strong><a href="https://www.statsfiji.gov.fj/" target="_blank" rel="noopener">Fiji Bureau of Statistics</a></strong> - employment data</li>
-            <li><strong><a href="https://www.rbf.gov.fj/" target="_blank" rel="noopener">Reserve Bank of Fiji</a></strong> - macro context</li>
-            <li><strong><a href="https://myfnpf.to/" target="_blank" rel="noopener">FNPF</a></strong> - contributions</li>
-          </ul>
-        </div>
-      </details>
-      <details class="fold reveal"><summary>How data moves on this demo <span>+</span></summary>
-        <div class="fold-body">
-          <p><strong style="color:var(--ink)">Jobs:</strong> seed listings + jobs you post (browser storage) - search filters - open detail - WhatsApp / share / save.</p>
-          <p><strong style="color:var(--ink)">Account:</strong> WhatsApp OTP demo or Facebook demo - profile save - used when messaging or posting.</p>
-          <p><strong style="color:var(--ink)">Waitlist:</strong> optional research answers in browser storage only.</p>
-          <p>Nothing leaves your device until we wire a real backend.</p>
-        </div>
-      </details>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap foot">
-    <span class="brand" style="color:var(--ink)"><span class="brand-mark">VW</span> VitiWork</span>
-    <span>Helping people in Fiji find work and take the next step</span>
-  </div>
-</footer>
-
-<div class="modal-root" id="modal" hidden>
-  <div class="modal" role="dialog" aria-modal="true">
-    <div class="modal-top"><span>Job</span><button type="button" class="x" id="modal-close" aria-label="Close">x</button></div>
-    <h3 id="modal-title"></h3>
-    <div class="sub" id="modal-sub"></div>
-    <div class="jd-meta-grid" id="modal-meta"></div>
-    <div class="note" id="modal-note" hidden></div>
-    <div id="modal-jd"></div>
-    <div class="modal-actions">
-      <button type="button" class="btn btn-primary btn-block" id="modal-wa">Message on WhatsApp</button>
-      <button type="button" class="btn btn-ghost btn-block" id="modal-share">Share this job</button>
-      <button type="button" class="btn btn-ghost btn-block" id="modal-save">Save</button>
+  <div class="modal-root" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-top"><span>Job</span><button type="button" class="x" id="modal-close" aria-label="Close">x</button></div>
+      <h3 id="modal-title"></h3>
+      <div class="sub" id="modal-sub"></div>
+      <div class="jd-meta-grid" id="modal-meta"></div>
+      <div class="note" id="modal-note" hidden></div>
+      <div id="modal-jd"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary btn-block" id="modal-wa">Message on WhatsApp</button>
+        <button type="button" class="btn btn-ghost btn-block" id="modal-share">Share</button>
+        <button type="button" class="btn btn-ghost btn-block" id="modal-save">Save</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-(function(){
-  function safeJSON(key, fb){
-    try{ var r=localStorage.getItem(key); if(r==null||r==='')return fb; return JSON.parse(r);}
-    catch(e){ try{localStorage.removeItem(key);}catch(_){} return fb; }
+  <script>
+(function () {
+  function safeJSON(key, fb) {
+    try {
+      var r = localStorage.getItem(key);
+      if (r == null || r === "") return fb;
+      return JSON.parse(r);
+    } catch (e) {
+      try { localStorage.removeItem(key); } catch (_) {}
+      return fb;
+    }
   }
-  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  function val(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
-  function toast(m){ var el=document.getElementById('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(function(){el.classList.remove('show');},2400); }
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function lines(s) {
+    return String(s || "").split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+  function toast(m) {
+    var el = document.getElementById("toast");
+    el.textContent = m;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove("show"); }, 2400);
+  }
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
 
-  var SEED=[
-    {id:'fd',title:'Front Desk Receptionist',company:'Grand Pacific Hotel',loc:'Suva',salary:'FJ$1,200-1,800/mo',cat:'Hospitality',type:'Full-time',posted:'2h ago',phone:'6799990001',note:'',desc:'Guest-facing desk. English and iTaukei a plus. Weekend shifts.'},
-    {id:'bpo',title:'Customer Care Representative',company:'Fiji BPO Solutions',loc:'Suva',salary:'FJ$1,000-1,500/mo',cat:'BPO',type:'Full-time',posted:'5h ago',phone:'6799990008',note:'Night shifts for AU/NZ clients.',desc:'Inbound support. Strong English. Training provided.'},
-    {id:'chef',title:'Chef de Partie',company:'Sofitel Fiji',loc:'Nadi',salary:'FJ$1,800-2,500/mo',cat:'Hospitality',type:'Full-time',posted:'1d ago',phone:'6799990007',note:'',desc:'Signature kitchen. 3+ years experience. Accommodation options.'},
-    {id:'sales',title:'Sales Assistant',company:'MHCC',loc:'Suva',salary:'FJ$800-1,000/mo',cat:'Retail',type:'Casual',posted:'1d ago',phone:'6799990002',note:'',desc:'Part-time floor sales. Weekend availability preferred.'},
-    {id:'con',title:'Construction Worker',company:'Fletcher Construction',loc:'Nadi',salary:'FJ$1,500-2,000/mo',cat:'Construction',type:'Contract',posted:'2d ago',phone:'6799990003',note:'Fijian citizenship required.',desc:'Airport expansion. Formwork, steel, or concrete experience.'},
-    {id:'farm',title:'Seasonal Farm Hand',company:'Rewa Farm Co-op',loc:'Rewa Delta',salary:'FJ$700-900/mo',cat:'Agriculture',type:'Seasonal',posted:'3d ago',phone:'6799990004',note:'Housing included.',desc:'Sugarcane season. Training given.'},
-    {id:'it',title:'IT Support Technician',company:'Pacific Cloud Desk',loc:'Nasinu',salary:'FJ$1,600-2,200/mo',cat:'IT',type:'Full-time',posted:'3d ago',phone:'6799990011',note:'',desc:'Help desk and networking. Hybrid options.'},
-    {id:'driver',title:'Delivery Driver',company:'Tappoo Group',loc:'Suva',salary:'FJ$1,000-1,300/mo',cat:'Drivers',type:'Full-time',posted:'4d ago',phone:'6799990005',note:'',desc:'Suva metro. Valid licence. Fuel allowance.'},
-    {id:'tour',title:'Tour Guide',company:'Adventure Fiji Tours',loc:'Denarau',salary:'FJ$900-1,400/mo',cat:'Tourism',type:'Full-time',posted:'5d ago',phone:'6799990006',note:'',desc:'Island tours. First aid preferred.'},
-    {id:'acct',title:'Junior Accountant',company:'Island Ledger Co',loc:'Lautoka',salary:'FJ$1,400-2,000/mo',cat:'Office',type:'Full-time',posted:'1w ago',phone:'6799990012',note:'',desc:'Bookkeeping and GST support. Excel required.'},
-    {id:'sav',title:'Retail Supervisor',company:'Morris Hedstrom',loc:'Savusavu',salary:'FJ$1,100-1,400/mo',cat:'Retail',type:'Full-time',posted:'2d ago',phone:'6799990013',note:'',desc:'Supervise floor team.'},
-    {id:'tav',title:'Resort Housekeeper',company:'Taveuni Palms',loc:'Taveuni',salary:'FJ$750-950/mo',cat:'Hospitality',type:'Full-time',posted:'6h ago',phone:'6799990014',note:'Staff housing available.',desc:'Guest rooms and public areas. Training provided.'}
+  /** Normalize place text for natural matching (any Fiji place, free text). */
+  function normPlace(s) {
+    return String(s || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+  function placeMatch(jobLoc, query) {
+    var q = normPlace(query);
+    if (!q) return true;
+    var loc = normPlace(jobLoc);
+    if (!loc) return false;
+    if (loc.indexOf(q) !== -1 || q.indexOf(loc) !== -1) return true;
+    // token overlap: "nadi denarau" matches "Denarau Island, Nadi"
+    var qTokens = q.split(" ").filter(Boolean);
+    var locTokens = loc.split(" ").filter(Boolean);
+    return qTokens.every(function (qt) {
+      return locTokens.some(function (lt) {
+        return lt.indexOf(qt) === 0 || qt.indexOf(lt) === 0 || lt.indexOf(qt) !== -1;
+      });
+    });
+  }
+
+  var SEED = [
+    {id:"fd",title:"Front Desk Receptionist",company:"Grand Pacific Hotel",loc:"Suva",salary:"FJ$1,200-1,800/mo",cat:"Hospitality",type:"Full-time",posted:"2h ago",phone:"6799990001",hours:"Rostered shifts including weekends",start:"Immediate",summary:"Join the front desk team as the first point of contact for hotel guests.",responsibilities:["Welcome and check guests in and out","Manage reservations and enquiries","Coordinate with housekeeping"],requirements:["Clear spoken English","Available for weekend shifts","Friendly customer service"],preferred:["iTaukei language skills","Prior hotel experience"],benefits:["Staff meals","Uniform","Training"],note:""},
+    {id:"bpo",title:"Customer Care Representative",company:"Fiji BPO Solutions",loc:"Suva",salary:"FJ$1,000-1,500/mo",cat:"BPO",type:"Full-time",posted:"5h ago",phone:"6799990008",hours:"Night shifts AU/NZ time",start:"This month",summary:"Support international customers by phone and chat. Training provided.",responsibilities:["Handle inbound enquiries","Log cases in CRM","Follow quality standards"],requirements:["Strong English","Basic computer skills","Able to work nights"],preferred:["Call centre experience"],benefits:["Paid training","Bonuses"],note:"Night shifts for AU/NZ clients."},
+    {id:"chef",title:"Chef de Partie",company:"Sofitel Fiji",loc:"Nadi",salary:"FJ$1,800-2,500/mo",cat:"Hospitality",type:"Full-time",posted:"1d ago",phone:"6799990007",hours:"Kitchen roster",start:"ASAP",summary:"Run a section in our signature restaurant kitchen.",responsibilities:["Prepare dishes to standard","Manage section during service","Food safety and stock"],requirements:["3+ years kitchen experience","Food safety certificate"],preferred:["Resort experience"],benefits:["Staff meals","Accommodation options"],note:""},
+    {id:"sales",title:"Sales Assistant",company:"MHCC",loc:"Suva",salary:"FJ$800-1,000/mo",cat:"Retail",type:"Casual",posted:"1d ago",phone:"6799990002",hours:"Part-time; weekends",start:"This week",summary:"Help customers on the shop floor and support the till.",responsibilities:["Serve customers","Restock shelves","Operate POS"],requirements:["Weekend availability","Friendly communication"],preferred:["Retail experience"],benefits:["Staff discount"],note:""},
+    {id:"con",title:"Construction Worker",company:"Fletcher Construction",loc:"Nadi",salary:"FJ$1,500-2,000/mo",cat:"Construction",type:"Contract",posted:"2d ago",phone:"6799990003",hours:"Day shifts",start:"TBA",summary:"Site roles supporting airport expansion works.",responsibilities:["Formwork, steel, or concrete tasks","Follow site safety rules"],requirements:["Fijian citizenship","Site experience","Physically fit"],preferred:["Trade tickets"],benefits:["PPE","Meals on site"],note:"Fijian citizenship required."},
+    {id:"farm",title:"Seasonal Farm Hand",company:"Rewa Farm Co-op",loc:"Rewa Delta",salary:"FJ$700-900/mo",cat:"Agriculture",type:"Seasonal",posted:"3d ago",phone:"6799990004",hours:"Daylight seasonal",start:"Harvest window",summary:"Seasonal sugarcane harvest work with training.",responsibilities:["Field work as directed","Safe tool use"],requirements:["Physically fit","Available for season"],preferred:["Farm experience"],benefits:["Housing","Meals"],note:"Housing included."},
+    {id:"it",title:"IT Support Technician",company:"Pacific Cloud Desk",loc:"Nasinu",salary:"FJ$1,600-2,200/mo",cat:"IT",type:"Full-time",posted:"3d ago",phone:"6799990011",hours:"Business hours",start:"Flexible",summary:"Endpoint and network support across sites.",responsibilities:["Troubleshoot Windows and network","Resolve tickets to SLA"],requirements:["Hands-on troubleshooting","Clear English"],preferred:["CompTIA or similar"],benefits:["Hybrid options","Training budget"],note:""},
+    {id:"driver",title:"Delivery Driver",company:"Tappoo Group",loc:"Suva",salary:"FJ$1,000-1,300/mo",cat:"Drivers",type:"Full-time",posted:"4d ago",phone:"6799990005",hours:"Day shifts",start:"ASAP",summary:"Deliveries across Suva metro.",responsibilities:["Complete delivery runs","Vehicle care"],requirements:["Valid Fiji licence","Know Suva roads"],preferred:["Own vehicle"],benefits:["Fuel allowance"],note:""},
+    {id:"tour",title:"Tour Guide",company:"Adventure Fiji Tours",loc:"Denarau",salary:"FJ$900-1,400/mo",cat:"Tourism",type:"Full-time",posted:"5d ago",phone:"6799990006",hours:"Tour schedules",start:"This season",summary:"Lead small group tours for visitors.",responsibilities:["Lead tours","Safety checks"],requirements:["Strong guest communication","Outdoor fitness"],preferred:["Boat licence","First aid"],benefits:["Tips","Meal allowances"],note:""},
+    {id:"acct",title:"Junior Accountant",company:"Island Ledger Co",loc:"Lautoka",salary:"FJ$1,400-2,000/mo",cat:"Office",type:"Full-time",posted:"1w ago",phone:"6799990012",hours:"Mon-Fri",start:"Negotiable",summary:"Bookkeeping and GST support in a growing practice.",responsibilities:["Invoices and reconciliations","GST support"],requirements:["Accounting diploma or degree","Excel skills"],preferred:["Junior finance experience"],benefits:["FNPF","Training"],note:""},
+    {id:"sav",title:"Retail Supervisor",company:"Morris Hedstrom",loc:"Savusavu",salary:"FJ$1,100-1,400/mo",cat:"Retail",type:"Full-time",posted:"2d ago",phone:"6799990013",hours:"Including weekends",start:"ASAP",summary:"Lead a small floor team in Savusavu.",responsibilities:["Supervise floor","Coach team"],requirements:["Retail experience","Weekend availability"],preferred:["Supervisory experience"],benefits:["Staff benefits"],note:""},
+    {id:"tav",title:"Resort Housekeeper",company:"Taveuni Palms",loc:"Taveuni",salary:"FJ$750-950/mo",cat:"Hospitality",type:"Full-time",posted:"6h ago",phone:"6799990014",hours:"Day shifts",start:"Immediate",summary:"Guest rooms and public areas to resort standard.",responsibilities:["Clean rooms","Restock amenities"],requirements:["Willing to learn","Reliable attendance"],preferred:["Housekeeping experience"],benefits:["Staff housing","Training"],note:"Staff housing available."},
+    {id:"kad",title:"Boat Crew",company:"Kadavu Sea Transport",loc:"Vunisea, Kadavu",salary:"FJ$900-1,200/mo",cat:"Tourism",type:"Full-time",posted:"1d ago",phone:"6799990015",hours:"Sailing schedule",start:"ASAP",summary:"Crew for inter-island passenger and cargo runs from Kadavu.",responsibilities:["Deck duties","Passenger safety","Cargo handling"],requirements:["Comfortable at sea","Team player","Physically fit"],preferred:["Boat experience","Swimming confidence"],benefits:["Meals on trips"],note:""},
+    {id:"yas",title:"Dive Instructor",company:"Blue Lagoon Divers",loc:"Yasawa",salary:"FJ$1,500-2,200/mo",cat:"Tourism",type:"Seasonal",posted:"3d ago",phone:"6799990016",hours:"Dive schedule",start:"Season start",summary:"Lead certified dives and brief resort guests in the Yasawas.",responsibilities:["Guide dives","Equipment checks","Guest briefings"],requirements:["Dive instructor certification","First aid","English for guests"],preferred:["Resort dive experience"],benefits:["Staff rates","Island stay"],note:""}
   ];
-  var CATS=['All','Hospitality','Retail','Construction','Agriculture','BPO','IT','Office','Drivers','Tourism','Trades','Other'];
-  var userPosts=safeJSON('vw_prod_posts',[]); if(!Array.isArray(userPosts)) userPosts=[];
-  var jobs=SEED.concat(userPosts);
-  var cat='All', query='', locQuery='', current=null;
-  var saved=new Set(safeJSON('vw_prod_saved',[]));
-  var session=safeJSON('vw_prod_session',null);
 
-  function filtered(){
-    var q=query.trim().toLowerCase(), lq=locQuery.trim().toLowerCase();
-    return jobs.filter(function(j){
-      var cOk=cat==='All'||j.cat===cat;
-      var lOk=!lq||String(j.loc||'').toLowerCase().indexOf(lq)!==-1;
-      var blob=[j.title,j.company,j.cat,j.loc,j.desc,j.type].join(' ').toLowerCase();
-      var qOk=!q||blob.indexOf(q)!==-1;
-      return cOk&&lOk&&qOk;
+  var CATS = ["All","Hospitality","Retail","Construction","Agriculture","BPO","IT","Office","Drivers","Tourism","Trades","Other"];
+  var userPosts = safeJSON("vw_prod_posts", []);
+  if (!Array.isArray(userPosts)) userPosts = [];
+  var jobs = SEED.concat(userPosts);
+  var cat = "All";
+  var query = "";
+  var locQuery = "";
+  var session = safeJSON("vw_prod_session", null);
+  var saved = new Set(safeJSON("vw_prod_saved", []));
+  var current = null;
+
+  /* -------- Views / IA -------- */
+  function go(view, opts) {
+    opts = opts || {};
+    document.querySelectorAll(".view").forEach(function (v) {
+      v.classList.toggle("on", v.getAttribute("data-view") === view);
+    });
+    document.querySelectorAll("[data-go]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-go") === view);
+    });
+    if (location.hash !== "#" + view) {
+      history.replaceState(null, "", "#" + view);
+    }
+    window.scrollTo(0, 0);
+    if (view === "jobs") paintJobs();
+    if (view === "home") paintHome();
+    if (view === "account") refreshAuth();
+    if (view === "post") refreshAuth();
+  }
+  document.querySelectorAll("[data-go]").forEach(function (el) {
+    el.addEventListener("click", function () { go(el.getAttribute("data-go")); });
+  });
+  document.getElementById("nav-cta").onclick = function () {
+    if (session) go("account");
+    else go("account");
+  };
+
+  /* -------- Jobs paint -------- */
+  function filtered() {
+    var q = query.trim().toLowerCase();
+    return jobs.filter(function (j) {
+      var cOk = cat === "All" || j.cat === cat;
+      var lOk = placeMatch(j.loc, locQuery);
+      var blob = [j.title, j.company, j.cat, j.loc, j.summary, j.desc, j.type, (j.requirements || []).join(" ")].join(" ").toLowerCase();
+      var qOk = !q || blob.indexOf(q) !== -1;
+      return cOk && lOk && qOk;
     });
   }
-  function renderFilters(){
-    var row=document.getElementById('filters');
-    row.innerHTML=CATS.map(function(c){return '<button type="button" class="fchip '+(cat===c?'on':'')+'" data-cat="'+c+'">'+c+'</button>';}).join('');
-    row.querySelectorAll('[data-cat]').forEach(function(b){ b.onclick=function(){ cat=b.getAttribute('data-cat'); renderFilters(); renderJobs(); }; });
+  function paintChips() {
+    var row = document.getElementById("filters");
+    row.innerHTML = CATS.map(function (c) {
+      return '<button type="button" class="fchip ' + (cat === c ? "on" : "") + '" data-cat="' + c + '">' + c + "</button>";
+    }).join("");
+    row.querySelectorAll("[data-cat]").forEach(function (b) {
+      b.onclick = function () { cat = b.getAttribute("data-cat"); paintChips(); paintJobs(); };
+    });
   }
-  function renderJobs(){
-    var list=filtered();
-    document.getElementById('job-count').textContent=list.length+(list.length===1?' role':' roles');
-    var grid=document.getElementById('job-grid');
-    if(!list.length){
-      grid.innerHTML='<div class="list-empty"><h3>No roles match</h3><p>Try another keyword or any place in Fiji. Clear the location box to see all.</p></div>';
+  function jobRow(j) {
+    var pay = j.salary && j.salary !== "Pay on enquiry" ? j.salary : "";
+    var when = j.posted || "";
+    return '<button type="button" class="job" data-id="' + esc(j.id) + '"><div><p class="job-title">' + esc(j.title) + '</p><p class="job-co">' + esc(j.company) + (pay ? " · " + esc(pay) : "") + '</p></div><p class="job-meta">' + esc(j.loc) + " · " + esc(j.type) + (when ? "<br>" + esc(when) : "") + "</p></button>";
+  }
+  function paintJobs() {
+    var list = filtered();
+    document.getElementById("job-count").textContent = list.length + (list.length === 1 ? " role" : " roles");
+    var grid = document.getElementById("job-grid");
+    if (!list.length) {
+      grid.innerHTML = '<div class="list-empty"><h3>No roles match</h3><p>Try broader keywords or another place name. Matching is free-text across all of Fiji.</p></div>';
       return;
     }
-    grid.innerHTML=list.map(function(j){
-      var pay=j.salary&&j.salary!=='Pay on enquiry'?j.salary:'';
-      var when=j.posted||'';
-      return '<button type="button" class="job" data-id="'+esc(j.id)+'"><div><p class="job-title">'+esc(j.title)+'</p><p class="job-co">'+esc(j.company)+(pay?' · '+esc(pay):'')+'</p></div><p class="job-meta">'+esc(j.loc)+' · '+esc(j.type)+(when?'<br>'+esc(when):'')+'</p></button>';
-    }).join('');
-    grid.querySelectorAll('.job').forEach(function(b){ b.onclick=function(){ openJob(b.getAttribute('data-id')); }; });
+    grid.innerHTML = list.map(jobRow).join("");
+    grid.querySelectorAll(".job").forEach(function (b) {
+      b.onclick = function () { openJob(b.getAttribute("data-id")); };
+    });
   }
-  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-  function openJob(id){
-    current=jobs.find(function(j){return j.id===id;});
-    if(!current) return;
-    document.getElementById('modal-title').textContent=current.title;
-    document.getElementById('modal-sub').textContent=current.company+' · '+current.loc+' · '+current.type;
-    document.getElementById('modal-pay').textContent=current.salary||'Pay on enquiry';
-    document.getElementById('modal-desc').textContent=current.desc||'';
-    var note=document.getElementById('modal-note');
-    if(current.note){ note.hidden=false; note.textContent=current.note; } else note.hidden=true;
-    document.getElementById('modal-save').textContent=saved.has(current.id)?'Saved':'Save';
-    var m=document.getElementById('modal'); m.hidden=false; m.classList.add('open'); document.body.style.overflow='hidden';
+  function paintHome() {
+    var list = SEED.concat(userPosts).slice(0, 4);
+    document.getElementById("home-preview").innerHTML = list.map(function (j) {
+      return '<button type="button" class="home-card" data-id="' + esc(j.id) + '"><h3>' + esc(j.title) + "</h3><p>" + esc(j.company) + " · " + esc(j.loc) + "</p><p style=\"margin-top:0.35rem\">" + esc(j.salary || "") + "</p></button>";
+    }).join("");
+    document.querySelectorAll("#home-preview .home-card").forEach(function (b) {
+      b.onclick = function () { openJob(b.getAttribute("data-id")); };
+    });
   }
-  function closeModal(){ var m=document.getElementById('modal'); m.classList.remove('open'); m.hidden=true; document.body.style.overflow=''; }
-  document.getElementById('modal-close').onclick=closeModal;
-  document.getElementById('modal').onclick=function(e){ if(e.target.id==='modal') closeModal(); };
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
 
-  document.getElementById('modal-wa').onclick=function(){
-    if(!current) return;
-    if(!session){ toast('Sign in first so employers know who is messaging'); document.getElementById('account').scrollIntoView({behavior:'smooth'}); return; }
-    var name=session.name||'there';
-    var text=encodeURIComponent('Bula, I am '+name+'. I saw the '+current.title+' role at '+current.company+' on VitiWork ('+current.loc+'). I am interested and would love to learn more. Vinaka.');
-    var phone=String(current.phone||'').replace(/\D/g,'')||'6790000000';
-    window.open('https://wa.me/'+phone+'?text='+text,'_blank','noopener');
+  function bullets(arr) {
+    if (!arr || !arr.length) return "";
+    return "<ul>" + arr.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>";
+  }
+  function openJob(id) {
+    current = jobs.find(function (j) { return j.id === id; });
+    if (!current) return;
+    document.getElementById("modal-title").textContent = current.title;
+    document.getElementById("modal-sub").textContent = current.company;
+    document.getElementById("modal-meta").innerHTML = [
+      ["Pay", current.salary || "Pay on enquiry"],
+      ["Location", current.loc || ""],
+      ["Type", current.type || ""],
+      ["Hours / shifts", current.hours || "See description"],
+      ["Start", current.start || "To be confirmed"],
+      ["Category", current.cat || ""]
+    ].map(function (it) {
+      return '<div class="jd-meta"><span>' + esc(it[0]) + "</span><strong>" + esc(it[1]) + "</strong></div>";
+    }).join("");
+    var note = document.getElementById("modal-note");
+    if (current.note) { note.hidden = false; note.textContent = current.note; }
+    else note.hidden = true;
+    var h = "";
+    if (current.summary) h += '<div class="jd-block"><h4>About the role</h4><p>' + esc(current.summary) + "</p></div>";
+    if (current.responsibilities && current.responsibilities.length) h += '<div class="jd-block"><h4>Responsibilities</h4>' + bullets(current.responsibilities) + "</div>";
+    if (current.requirements && current.requirements.length) h += '<div class="jd-block"><h4>Requirements</h4>' + bullets(current.requirements) + "</div>";
+    if (current.preferred && current.preferred.length) h += '<div class="jd-block"><h4>Preferred</h4>' + bullets(current.preferred) + "</div>";
+    if (current.benefits && current.benefits.length) h += '<div class="jd-block"><h4>Benefits</h4>' + bullets(current.benefits) + "</div>";
+    document.getElementById("modal-jd").innerHTML = h || "<p class=\"muted\">Contact the employer for details.</p>";
+    document.getElementById("modal-save").textContent = saved.has(current.id) ? "Saved" : "Save";
+    var m = document.getElementById("modal");
+    m.hidden = false; m.classList.add("open"); document.body.style.overflow = "hidden";
+  }
+  function closeModal() {
+    var m = document.getElementById("modal");
+    m.classList.remove("open"); m.hidden = true; document.body.style.overflow = "";
+  }
+  document.getElementById("modal-close").onclick = closeModal;
+  document.getElementById("modal").onclick = function (e) { if (e.target.id === "modal") closeModal(); };
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+
+  document.getElementById("modal-wa").onclick = function () {
+    if (!current) return;
+    if (!session) { toast("Sign in to message with your name"); go("account"); return; }
+    var name = session.name || "there";
+    var text = encodeURIComponent("Bula, I am " + name + ". I saw the " + current.title + " role at " + current.company + " on VitiWork (" + current.loc + "). I am interested and would love to learn more. Vinaka.");
+    var phone = String(current.phone || "").replace(/\D/g, "") || "6790000000";
+    window.open("https://wa.me/" + phone + "?text=" + text, "_blank", "noopener");
   };
-  document.getElementById('modal-share').onclick=function(){
-    if(!current) return;
-    var text=current.title+' at '+current.company+'\n'+(current.salary||'')+' · '+current.loc+'\nVia VitiWork';
-    if(navigator.share) navigator.share({title:current.title,text:text}).catch(function(){ copy(text); }); else copy(text);
+  document.getElementById("modal-share").onclick = function () {
+    if (!current) return;
+    var text = current.title + " at " + current.company + "\n" + (current.salary || "") + " · " + current.loc + "\nVia VitiWork";
+    if (navigator.share) navigator.share({ title: current.title, text: text }).catch(function () {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { toast("Copied"); });
   };
-  function copy(text){ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function(){toast('Copied');}); else toast('Share ready'); }
-  document.getElementById('modal-save').onclick=function(){
-    if(!current) return;
-    if(!session){ toast('Sign in to save jobs'); document.getElementById('account').scrollIntoView({behavior:'smooth'}); return; }
-    if(saved.has(current.id)) saved.delete(current.id); else saved.add(current.id);
-    localStorage.setItem('vw_prod_saved', JSON.stringify(Array.from(saved)));
-    document.getElementById('modal-save').textContent=saved.has(current.id)?'Saved':'Save';
-    toast(saved.has(current.id)?'Saved':'Removed');
+  document.getElementById("modal-save").onclick = function () {
+    if (!current) return;
+    if (!session) { toast("Sign in to save jobs"); go("account"); return; }
+    if (saved.has(current.id)) saved.delete(current.id); else saved.add(current.id);
+    localStorage.setItem("vw_prod_saved", JSON.stringify(Array.from(saved)));
+    document.getElementById("modal-save").textContent = saved.has(current.id) ? "Saved" : "Save";
+    toast(saved.has(current.id) ? "Saved" : "Removed");
   };
 
-  document.getElementById('post-form').onsubmit=function(e){
+  /* Search bridges */
+  function runHomeSearch() {
+    query = document.getElementById("home-q").value;
+    locQuery = document.getElementById("home-loc").value;
+    document.getElementById("jobs-q").value = query;
+    document.getElementById("jobs-loc").value = locQuery;
+    go("jobs");
+    paintJobs();
+  }
+  document.getElementById("home-search").onclick = runHomeSearch;
+  document.getElementById("home-q").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); runHomeSearch(); } });
+  document.getElementById("home-loc").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); runHomeSearch(); } });
+  document.getElementById("jobs-search").onclick = function () {
+    query = document.getElementById("jobs-q").value;
+    locQuery = document.getElementById("jobs-loc").value;
+    paintJobs();
+  };
+  document.getElementById("jobs-q").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); document.getElementById("jobs-search").click(); } });
+  document.getElementById("jobs-loc").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); document.getElementById("jobs-search").click(); } });
+
+  /* Post */
+  document.getElementById("post-form").onsubmit = function (e) {
     e.preventDefault();
-    if(!session){ toast('Sign in to post a job'); document.getElementById('account').scrollIntoView({behavior:'smooth'}); return; }
-    var title=val('p-title'), company=val('p-company'), salary=val('p-pay'), loc=val('p-loc'), phone=val('p-phone');
-    if(!title||!company||!loc||!phone){ toast('Title, employer, location, and WhatsApp required'); return; }
-    if(!/^\+?[\d\s-]{8,}$/.test(phone)){ toast('Valid WhatsApp number needed'); return; }
-    var job={id:'u'+Date.now(),title:title,company:company,salary:salary||'Pay on enquiry',loc:loc,cat:document.getElementById('p-cat').value,type:document.getElementById('p-type').value,phone:phone.replace(/\D/g,''),posted:'Just now',desc:document.getElementById('p-desc').value.trim()||'Contact employer on WhatsApp for details.',note:document.getElementById('p-housing').checked?'Housing or meals included.':'',owner:session.id};
-    userPosts=[job].concat(userPosts);
-    localStorage.setItem('vw_prod_posts', JSON.stringify(userPosts));
-    jobs=SEED.concat(userPosts);
-    e.target.reset(); cat='All'; query=''; locQuery='';
-    document.getElementById('q').value=''; document.getElementById('q-loc').value='';
-    renderFilters(); renderJobs(); toast('Job posted'); document.getElementById('roles').scrollIntoView({behavior:'smooth'});
+    if (!session) { toast("Sign in to post a job"); go("account"); return; }
+    var title = val("p-title"), company = val("p-company"), loc = val("p-loc"), phone = val("p-phone");
+    var summary = val("p-summary"), resp = lines(val("p-resp")), req = lines(val("p-req"));
+    if (!title || !company || !loc || !phone || !summary || !resp.length || !req.length) {
+      toast("Complete basics, summary, responsibilities, and requirements");
+      return;
+    }
+    if (!/^\+?[\d\s-]{8,}$/.test(phone)) { toast("Valid WhatsApp number needed"); return; }
+    var benefits = lines(val("p-benefits"));
+    if (document.getElementById("p-housing").checked) benefits.push("Housing or meals included");
+    var job = {
+      id: "u" + Date.now(), title: title, company: company, loc: loc,
+      salary: val("p-pay") || "Pay on enquiry",
+      cat: document.getElementById("p-cat").value,
+      type: document.getElementById("p-type").value,
+      hours: val("p-hours"), start: val("p-start"),
+      summary: summary, responsibilities: resp, requirements: req,
+      preferred: lines(val("p-pref")), benefits: benefits,
+      phone: phone.replace(/\D/g, ""), posted: "Just now",
+      note: document.getElementById("p-citizen").checked ? "Fijian citizenship required." : "",
+      owner: session.id
+    };
+    userPosts = [job].concat(userPosts);
+    localStorage.setItem("vw_prod_posts", JSON.stringify(userPosts));
+    jobs = SEED.concat(userPosts);
+    e.target.reset();
+    toast("Job posted");
+    go("jobs");
+    paintJobs();
   };
-  function val(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
 
-  // Account
-  function saveSession(s){ session=s; localStorage.setItem('vw_prod_session', JSON.stringify(s)); refreshAuth(); }
-  function clearSession(){ session=null; localStorage.removeItem('vw_prod_session'); refreshAuth(); }
-  function refreshAuth(){
-    var out=document.getElementById('auth-out'), wa=document.getElementById('auth-wa'), inn=document.getElementById('auth-in');
-    var st=document.getElementById('account-status'), nav=document.getElementById('nav-account-btn'), gate=document.getElementById('post-gate-note');
-    if(session){
-      out.hidden=true; wa.hidden=true; inn.hidden=false;
-      st.textContent='Signed in as '+(session.name||session.phone||'member')+' via '+(session.provider||'account')+'.';
-      nav.textContent=session.name?session.name.split(' ')[0]:'Account';
-      gate.textContent='You can post a job while signed in.';
-      document.getElementById('prof-name').value=session.name||'';
-      document.getElementById('prof-phone').value=session.phone||'';
-      document.getElementById('prof-loc').value=session.loc||'';
-      document.getElementById('prof-role').value=session.role||'seeker';
-      document.getElementById('prof-about').value=session.about||'';
+  /* Auth */
+  function refreshAuth() {
+    var out = document.getElementById("auth-out");
+    var wa = document.getElementById("auth-wa");
+    var inn = document.getElementById("auth-in");
+    var st = document.getElementById("account-status");
+    var nav = document.getElementById("nav-cta");
+    var gate = document.getElementById("post-gate-note");
+    if (session) {
+      out.hidden = true; wa.hidden = true; inn.hidden = false;
+      st.textContent = "Signed in as " + (session.name || session.phone || "member") + " via " + (session.provider || "account") + ".";
+      nav.textContent = session.name ? session.name.split(" ")[0] : "Account";
+      gate.textContent = "You can publish while signed in. Free posts are capped while we grow.";
+      document.getElementById("prof-name").value = session.name || "";
+      document.getElementById("prof-phone").value = session.phone || "";
+      document.getElementById("prof-loc").value = session.loc || "";
+      document.getElementById("prof-role").value = session.role || "seeker";
+      document.getElementById("prof-about").value = session.about || "";
     } else {
-      out.hidden=false; wa.hidden=true; inn.hidden=true;
-      st.textContent='You are signed out.';
-      nav.textContent='Sign in';
-      gate.textContent='Sign in to publish a listing.';
+      out.hidden = false; wa.hidden = true; inn.hidden = true;
+      st.textContent = "You are signed out.";
+      nav.textContent = "Sign in";
+      gate.textContent = "Sign in from Account to publish a listing.";
     }
   }
-  document.getElementById('nav-account-btn').onclick=function(){ document.getElementById('account').scrollIntoView({behavior:'smooth'}); };
-  document.getElementById('btn-wa-auth').onclick=function(){ document.getElementById('auth-out').hidden=true; document.getElementById('auth-wa').hidden=false; document.getElementById('otp-field').hidden=true; document.getElementById('btn-wa-verify').hidden=true; document.getElementById('btn-wa-send').hidden=false; };
-  document.getElementById('btn-auth-back').onclick=function(){ document.getElementById('auth-wa').hidden=true; document.getElementById('auth-out').hidden=false; };
-  document.getElementById('btn-wa-send').onclick=function(){
-    var phone=val('auth-phone');
-    if(!/^\+?[\d\s-]{8,}$/.test(phone)){ toast('Enter a valid WhatsApp number'); return; }
-    document.getElementById('otp-field').hidden=false; document.getElementById('btn-wa-verify').hidden=false; document.getElementById('btn-wa-send').hidden=true;
-    toast('Demo code: 123456');
-  };
-  document.getElementById('btn-wa-verify').onclick=function(){
-    if(val('auth-otp')!=='123456'){ toast('Use 123456'); return; }
-    var phone=val('auth-phone'); var id='wa_'+phone.replace(/\D/g,'');
-    var profiles=safeJSON('vw_prod_profiles',{}); var prev=profiles[id]||{};
-    saveSession({id:id,provider:'WhatsApp',phone:phone,name:prev.name||'',loc:prev.loc||'',role:prev.role||'seeker',about:prev.about||'',created:prev.created||new Date().toISOString()});
-    toast('Signed in with WhatsApp');
-  };
-  document.getElementById('btn-fb-auth').onclick=function(){
-    var id='fb_demo_user'; var profiles=safeJSON('vw_prod_profiles',{}); var prev=profiles[id]||{};
-    saveSession({id:id,provider:'Facebook',phone:prev.phone||'',name:prev.name||'Fiji User',loc:prev.loc||'',role:prev.role||'seeker',about:prev.about||'',created:prev.created||new Date().toISOString()});
-    toast('Signed in with Facebook (demo)');
-  };
-  document.getElementById('btn-save-profile').onclick=function(){
-    if(!session) return;
-    session.name=val('prof-name')||session.name;
-    session.phone=val('prof-phone')||session.phone;
-    session.loc=val('prof-loc');
-    session.role=document.getElementById('prof-role').value;
-    session.about=document.getElementById('prof-about').value.trim();
-    var profiles=safeJSON('vw_prod_profiles',{}); profiles[session.id]=session;
-    localStorage.setItem('vw_prod_profiles', JSON.stringify(profiles));
-    saveSession(session); toast('Profile saved');
-  };
-  document.getElementById('btn-signout').onclick=function(){ clearSession(); toast('Signed out'); };
-  function saveSession(s){ session=s; localStorage.setItem('vw_prod_session', JSON.stringify(s)); refreshAuth(); }
-  function clearSession(){ session=null; localStorage.removeItem('vw_prod_session'); refreshAuth(); }
-  function safeJSON(k,fb){ try{var r=localStorage.getItem(k); if(r==null||r==='')return fb; return JSON.parse(r);}catch(e){try{localStorage.removeItem(k);}catch(_){} return fb;} }
-
-  // Waitlist minimal
-  function setRole(role){
-    document.getElementById('role-field').value=role;
-    document.querySelectorAll('#waitlist .tab').forEach(function(t){ t.classList.toggle('on', t.getAttribute('data-tab')===role); });
-    document.getElementById('field-business').hidden=role!=='employer';
-    document.getElementById('q-seeker').hidden=role!=='seeker';
-    document.getElementById('q-employer').hidden=role!=='employer';
-    document.getElementById('q-returnee').hidden=role!=='returnee';
+  function saveSession(s) {
+    session = s;
+    localStorage.setItem("vw_prod_session", JSON.stringify(s));
+    refreshAuth();
   }
-  document.querySelectorAll('#waitlist .tab').forEach(function(t){ t.onclick=function(){ setRole(t.getAttribute('data-tab')); }; });
-  function showStep(n){ document.getElementById('step-1').hidden=n!==1; document.getElementById('step-2').hidden=n!==2; document.getElementById('step-label').textContent=n===1?'Step 1 of 2':'Step 2 of 2'; }
-  document.getElementById('next-step').onclick=function(){ if(!val('name')||!val('phone')||!val('city')){ toast('Name, WhatsApp, and place required'); return; } showStep(2); };
-  document.getElementById('back-step').onclick=function(){ showStep(1); };
-  document.getElementById('wait-form').onsubmit=function(e){
-    e.preventDefault();
-    var list=safeJSON('vw_prod_waitlist',[]); list.push({name:val('name'),phone:val('phone'),city:val('city'),role:document.getElementById('role-field').value,ts:new Date().toISOString()});
-    localStorage.setItem('vw_prod_waitlist', JSON.stringify(list));
-    document.getElementById('wait-form').style.display='none';
-    document.getElementById('form-success').classList.add('show');
-    document.getElementById('success-copy').textContent='You are on the list.';
+  document.getElementById("btn-wa-auth").onclick = function () {
+    document.getElementById("auth-out").hidden = true;
+    document.getElementById("auth-wa").hidden = false;
+    document.getElementById("otp-field").hidden = true;
+    document.getElementById("btn-wa-verify").hidden = true;
+    document.getElementById("btn-wa-send").hidden = false;
   };
-  document.getElementById('reset-wait').onclick=function(){ document.getElementById('wait-form').reset(); document.getElementById('wait-form').style.display='block'; document.getElementById('form-success').classList.remove('show'); setRole('seeker'); showStep(1); };
+  document.getElementById("btn-auth-back").onclick = function () {
+    document.getElementById("auth-wa").hidden = true;
+    document.getElementById("auth-out").hidden = false;
+  };
+  document.getElementById("btn-wa-send").onclick = function () {
+    if (!/^\+?[\d\s-]{8,}$/.test(val("auth-phone"))) { toast("Enter a valid WhatsApp number"); return; }
+    document.getElementById("otp-field").hidden = false;
+    document.getElementById("btn-wa-verify").hidden = false;
+    document.getElementById("btn-wa-send").hidden = true;
+    toast("Demo code: 123456");
+  };
+  document.getElementById("btn-wa-verify").onclick = function () {
+    if (val("auth-otp") !== "123456") { toast("Use 123456"); return; }
+    var phone = val("auth-phone");
+    var id = "wa_" + phone.replace(/\D/g, "");
+    var profiles = safeJSON("vw_prod_profiles", {});
+    var prev = profiles[id] || {};
+    saveSession({ id: id, provider: "WhatsApp", phone: phone, name: prev.name || "", loc: prev.loc || "", role: prev.role || "seeker", about: prev.about || "" });
+    toast("Signed in with WhatsApp");
+  };
+  document.getElementById("btn-fb-auth").onclick = function () {
+    var id = "fb_demo_user";
+    var profiles = safeJSON("vw_prod_profiles", {});
+    var prev = profiles[id] || {};
+    saveSession({ id: id, provider: "Facebook", phone: prev.phone || "", name: prev.name || "Fiji User", loc: prev.loc || "", role: prev.role || "seeker", about: prev.about || "" });
+    toast("Signed in with Facebook (demo)");
+  };
+  document.getElementById("btn-save-profile").onclick = function () {
+    if (!session) return;
+    session.name = val("prof-name") || session.name;
+    session.phone = val("prof-phone") || session.phone;
+    session.loc = val("prof-loc");
+    session.role = document.getElementById("prof-role").value;
+    session.about = document.getElementById("prof-about").value.trim();
+    var profiles = safeJSON("vw_prod_profiles", {});
+    profiles[session.id] = session;
+    localStorage.setItem("vw_prod_profiles", JSON.stringify(profiles));
+    saveSession(session);
+    toast("Profile saved");
+  };
+  document.getElementById("btn-signout").onclick = function () {
+    session = null;
+    localStorage.removeItem("vw_prod_session");
+    refreshAuth();
+    toast("Signed out");
+  };
 
-  // Search
-  function runSearch(){ query=document.getElementById('q').value; locQuery=document.getElementById('q-loc').value; renderFilters(); renderJobs(); document.getElementById('roles').scrollIntoView({behavior:'smooth',block:'start'}); }
-  document.getElementById('q-go').onclick=runSearch;
-  document.getElementById('q').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); runSearch(); } });
-  document.getElementById('q-loc').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); runSearch(); } });
-
-  try{
-    var io=new IntersectionObserver(function(entries){ entries.forEach(function(en){ if(en.isIntersecting) en.target.classList.add('in'); }); },{threshold:0.08});
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-  }catch(e){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }
-
-  renderFilters();
-  renderJobs();
-  setRole('seeker');
+  /* Boot */
+  paintChips();
+  paintHome();
+  paintJobs();
   refreshAuth();
-  document.querySelectorAll('.hero .reveal, #roles .reveal').forEach(function(el){ el.classList.add('in'); });
+  var hash = (location.hash || "#home").replace("#", "");
+  if (["home", "jobs", "post", "account", "learn"].indexOf(hash) === -1) hash = "home";
+  go(hash);
+  window.addEventListener("hashchange", function () {
+    var h = (location.hash || "#home").replace("#", "");
+    if (["home", "jobs", "post", "account", "learn"].indexOf(h) !== -1) go(h);
+  });
 })();
-</script>
-
-<script id="listing-standards-upgrade">
-(function(){
-  var FULL = [{"id": "fd", "title": "Front Desk Receptionist", "company": "Grand Pacific Hotel", "loc": "Suva", "salary": "FJ$1,200-1,800/mo", "cat": "Hospitality", "type": "Full-time", "posted": "2h ago", "phone": "6799990001", "hours": "Rostered shifts including weekends", "start": "Immediate", "summary": "Join the front desk team as the first point of contact for hotel guests. You will handle check-ins, reservations, and day-to-day guest enquiries.", "responsibilities": ["Welcome and check guests in and out", "Manage reservations and phone enquiries", "Coordinate with housekeeping and concierge", "Keep the lobby and desk presentation professional"], "requirements": ["Clear spoken English", "Comfortable with computers and basic booking systems", "Available for rostered weekend shifts", "Friendly, calm customer service manner"], "preferred": ["iTaukei language skills", "Prior hotel or front desk experience"], "benefits": ["Staff meals on shift", "Uniform provided", "Training and progression paths"], "note": ""}, {"id": "bpo", "title": "Customer Care Representative", "company": "Fiji BPO Solutions", "loc": "Suva", "salary": "FJ$1,000-1,500/mo", "cat": "BPO", "type": "Full-time", "posted": "5h ago", "phone": "6799990008", "hours": "Night shifts aligned to AU/NZ time", "start": "Training intake this month", "summary": "Support international customers by phone and chat for Australian and New Zealand clients. Full training provided for the right attitude and English.", "responsibilities": ["Handle inbound customer enquiries", "Log cases accurately in the CRM", "Follow service scripts and quality standards", "Escalate complex issues to team leads"], "requirements": ["Strong written and spoken English", "Basic computer skills", "Able to work night shifts", "Reliable attendance"], "preferred": ["Prior call centre or retail customer service experience"], "benefits": ["Paid training", "Performance bonuses", "Career progression into team lead roles"], "note": "Night shifts for AU/NZ clients. Training provided."}, {"id": "chef", "title": "Chef de Partie", "company": "Sofitel Fiji", "loc": "Nadi", "salary": "FJ$1,800-2,500/mo", "cat": "Hospitality", "type": "Full-time", "posted": "1d ago", "phone": "6799990007", "hours": "Kitchen roster including peaks and events", "start": "ASAP", "summary": "Run a section in our signature restaurant kitchen. High standards, international cuisine, resort environment.", "responsibilities": ["Prepare dishes to recipe and presentation standards", "Manage your section during service", "Support stock control and food safety", "Mentor junior kitchen staff"], "requirements": ["3+ years professional kitchen experience", "Food safety certificate", "Able to work under pressure during service", "Strong hygiene and time management"], "preferred": ["Resort or fine dining background", "Experience with international menus"], "benefits": ["Staff meals", "Accommodation options may be available", "Resort facilities access"], "note": "Local candidates preferred for this kitchen role."}, {"id": "sales", "title": "Sales Assistant", "company": "MHCC", "loc": "Suva", "salary": "FJ$800-1,000/mo", "cat": "Retail", "type": "Casual", "posted": "1d ago", "phone": "6799990002", "hours": "Part-time; weekends required", "start": "This week", "summary": "Help customers on the shop floor, keep displays tidy, and support the till during busy periods.", "responsibilities": ["Serve customers and answer product questions", "Restock and face shelves", "Operate POS when rostered", "Support store opening and closing tasks"], "requirements": ["Weekend availability", "Friendly communication", "Reliable and honest", "Able to stand for long periods"], "preferred": ["Prior retail experience"], "benefits": ["Staff discount", "Flexible casual roster"], "note": ""}, {"id": "con", "title": "Construction Worker", "company": "Fletcher Construction", "loc": "Nadi", "salary": "FJ$1,500-2,000/mo", "cat": "Construction", "type": "Contract", "posted": "2d ago", "phone": "6799990003", "hours": "Day shifts; site hours", "start": "Site mobilisation TBA", "summary": "Multiple positions supporting the Nadi airport expansion. Physical outdoor work with PPE and site meals provided.", "responsibilities": ["Formwork, steel fixing, or concreting tasks as assigned", "Follow site safety rules at all times", "Work as part of a crew to programme", "Keep tools and work areas orderly"], "requirements": ["Fijian citizenship", "Relevant site experience in formwork, steel, or concrete", "Physically fit for outdoor construction work", "Willing to follow PPE and safety procedures"], "preferred": ["Trade tickets or formal construction training"], "benefits": ["PPE provided", "Transport and daily meals on site"], "note": "Fijian citizenship required."}, {"id": "farm", "title": "Seasonal Farm Hand", "company": "Rewa Farm Co-op", "loc": "Rewa Delta", "salary": "FJ$700-900/mo", "cat": "Agriculture", "type": "Seasonal", "posted": "3d ago", "phone": "6799990004", "hours": "Seasonal daylight hours", "start": "Harvest season window", "summary": "Seasonal work during sugarcane harvest. Training given. Housing and meals available for the season.", "responsibilities": ["Field work as directed during harvest", "Safe use of tools and equipment", "Work as part of a seasonal crew", "Follow co-op safety and quality guidance"], "requirements": ["Physically fit", "Willing to learn on the job", "Available for the full seasonal period"], "preferred": ["Prior farm or outdoor labour experience"], "benefits": ["Housing", "Meals", "Transport from Suva options"], "note": "Housing and meals included."}, {"id": "it", "title": "IT Support Technician", "company": "Pacific Cloud Desk", "loc": "Nasinu", "salary": "FJ$1,600-2,200/mo", "cat": "IT", "type": "Full-time", "posted": "3d ago", "phone": "6799990011", "hours": "Business hours with occasional after-hours support", "start": "Flexible", "summary": "Support users across multiple sites with endpoint and network issues. Hybrid options available for the right candidate.", "responsibilities": ["Troubleshoot Windows and network issues", "Log and resolve tickets to SLA", "Image and deploy devices", "Document fixes for the team knowledge base"], "requirements": ["Hands-on troubleshooting experience", "Clear English for AU ticket queues", "Reliable transport when on-site", "Customer-friendly communication"], "preferred": ["CompTIA A+ or similar", "Prior MSP or help desk experience"], "benefits": ["Hybrid options", "Training budget", "Modern tooling"], "note": ""}, {"id": "driver", "title": "Delivery Driver", "company": "Tappoo Group", "loc": "Suva", "salary": "FJ$1,000-1,300/mo", "cat": "Drivers", "type": "Full-time", "posted": "4d ago", "phone": "6799990005", "hours": "Day shifts across Suva metro", "start": "ASAP", "summary": "Deliver goods across the Suva metro area for a busy retail group.", "responsibilities": ["Complete delivery runs to schedule", "Care for vehicle and report issues", "Confirm deliveries with customers and stores", "Follow road safety and company rules"], "requirements": ["Valid Fiji driver licence", "Knowledge of Suva roads", "Reliable and punctual", "Able to handle packages"], "preferred": ["Own reliable vehicle", "Prior delivery experience"], "benefits": ["Fuel allowance", "Phone allowance"], "note": ""}, {"id": "tour", "title": "Tour Guide", "company": "Adventure Fiji Tours", "loc": "Denarau", "salary": "FJ$900-1,400/mo", "cat": "Tourism", "type": "Full-time", "posted": "5d ago", "phone": "6799990006", "hours": "Tour schedules; early starts common", "start": "This season", "summary": "Lead small group tours and create a safe, memorable experience for visitors.", "responsibilities": ["Brief guests and lead tours", "Share local knowledge clearly", "Check safety equipment", "Coordinate with boats and partners"], "requirements": ["Strong guest communication", "First aid certificate or willingness to obtain", "Comfortable outdoors for long days", "Reliable transport to Denarau"], "preferred": ["Boat licence", "Prior guiding experience"], "benefits": ["Tips", "Island stays on some itineraries", "Meal allowances"], "note": ""}, {"id": "acct", "title": "Junior Accountant", "company": "Island Ledger Co", "loc": "Lautoka", "salary": "FJ$1,400-2,000/mo", "cat": "Office", "type": "Full-time", "posted": "1w ago", "phone": "6799990012", "hours": "Monday to Friday business hours", "start": "Negotiable", "summary": "Support the finance team with bookkeeping, GST, and month-end packs in a growing practice.", "responsibilities": ["Process invoices and reconciliations", "Support GST returns", "Maintain orderly financial files", "Help with month-end reporting"], "requirements": ["Diploma or degree in accounting or related field", "Solid Excel skills", "Careful with detail and deadlines", "Professional communication"], "preferred": ["Internship or junior finance experience", "Familiarity with FNPF processes"], "benefits": ["FNPF contributions", "Structured training"], "note": "Graduates welcome."}, {"id": "sav", "title": "Retail Supervisor", "company": "Morris Hedstrom", "loc": "Savusavu", "salary": "FJ$1,100-1,400/mo", "cat": "Retail", "type": "Full-time", "posted": "2d ago", "phone": "6799990013", "hours": "Rostered retail hours including weekends", "start": "ASAP", "summary": "Lead a small floor team, keep standards high, and deliver strong customer service in Savusavu.", "responsibilities": ["Supervise daily floor operations", "Coach team members", "Manage stock presentation", "Handle customer escalations"], "requirements": ["Prior retail experience", "Leadership potential", "Weekend availability", "Honest and reliable"], "preferred": ["Supervisory experience"], "benefits": ["Staff benefits per company policy"], "note": ""}, {"id": "tav", "title": "Resort Housekeeper", "company": "Taveuni Palms", "loc": "Taveuni", "salary": "FJ$750-950/mo", "cat": "Hospitality", "type": "Full-time", "posted": "6h ago", "phone": "6799990014", "hours": "Day shifts; resort roster", "start": "Immediate", "summary": "Keep guest rooms and public areas to resort standard. Training provided. Staff housing available.", "responsibilities": ["Clean and prepare guest rooms", "Restock amenities", "Report maintenance issues", "Support public area standards"], "requirements": ["Willing to learn resort standards", "Physically able for housekeeping work", "Reliable attendance", "Team player"], "preferred": ["Prior housekeeping or hospitality experience"], "benefits": ["Staff housing available", "Training provided", "Meals on shift may apply"], "note": "Staff housing available."}];
-  function lines(s){ return String(s||'').split(/\n+/).map(function(x){return x.trim();}).filter(Boolean); }
-  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  function bullets(arr){ if(!arr||!arr.length) return ''; return '<ul>'+arr.map(function(i){return '<li>'+esc(i)+'</li>';}).join('')+'</ul>'; }
-  function jdHtml(j){
-    var h='';
-    if(j.summary) h+='<div class="jd-block"><h4>About the role</h4><p>'+esc(j.summary)+'</p></div>';
-    if(j.responsibilities&&j.responsibilities.length) h+='<div class="jd-block"><h4>Responsibilities</h4>'+bullets(j.responsibilities)+'</div>';
-    if(j.requirements&&j.requirements.length) h+='<div class="jd-block"><h4>Requirements (must-have)</h4>'+bullets(j.requirements)+'</div>';
-    if(j.preferred&&j.preferred.length) h+='<div class="jd-block"><h4>Preferred</h4>'+bullets(j.preferred)+'</div>';
-    if(j.benefits&&j.benefits.length) h+='<div class="jd-block"><h4>Benefits</h4>'+bullets(j.benefits)+'</div>';
-    if(!h && j.desc) h='<div class="jd-block"><h4>About the role</h4><p style="white-space:pre-line">'+esc(j.desc)+'</p></div>';
-    return h || '<div class="jd-block"><p>Contact the employer for full details.</p></div>';
-  }
-  function metaHtml(j){
-    return [
-      ['Pay', j.salary||'Pay on enquiry'],
-      ['Location', j.loc||''],
-      ['Type', j.type||''],
-      ['Hours / shifts', j.hours||'See description'],
-      ['Start', j.start||'To be confirmed'],
-      ['Category', j.cat||'']
-    ].map(function(it){ return '<div class="jd-meta"><span>'+esc(it[0])+'</span><strong>'+esc(it[1])+'</strong></div>'; }).join('');
-  }
-  function toast2(m){ var el=document.getElementById('toast'); if(!el) return; el.textContent=m; el.classList.add('show'); setTimeout(function(){el.classList.remove('show');},2400); }
-  function getPosts(){ try{ var p=JSON.parse(localStorage.getItem('vw_prod_posts')||'[]'); return Array.isArray(p)?p:[]; }catch(e){ return []; } }
-  function allJobs(){ return FULL.concat(getPosts()); }
-  var activeCat='All';
-
-  function openJobFull(id){
-    var current=null, all=allJobs();
-    for(var i=0;i<all.length;i++){ if(all[i].id===id){ current=all[i]; break; } }
-    if(!current) return;
-    document.getElementById('modal-title').textContent=current.title;
-    document.getElementById('modal-sub').textContent=current.company;
-    var meta=document.getElementById('modal-meta'); if(meta) meta.innerHTML=metaHtml(current);
-    var pay=document.getElementById('modal-pay'); if(pay) pay.textContent=current.salary||'Pay on enquiry';
-    var note=document.getElementById('modal-note'); if(note){ if(current.note){ note.hidden=false; note.textContent=current.note; } else note.hidden=true; }
-    var jd=document.getElementById('modal-jd'); if(jd) jd.innerHTML=jdHtml(current);
-    var m=document.getElementById('modal'); m.hidden=false; m.classList.add('open'); document.body.style.overflow='hidden';
-    document.getElementById('modal-wa').onclick=function(){
-      var session=null; try{ session=JSON.parse(localStorage.getItem('vw_prod_session')||'null'); }catch(e){}
-      if(!session){ toast2('Sign in first'); document.getElementById('account').scrollIntoView({behavior:'smooth'}); return; }
-      var name=session.name||'there';
-      var text=encodeURIComponent('Bula, I am '+name+'. I saw the '+current.title+' role at '+current.company+' on VitiWork ('+current.loc+'). I am interested and would love to learn more. Vinaka.');
-      var phone=String(current.phone||'').replace(/\D/g,'')||'6790000000';
-      window.open('https://wa.me/'+phone+'?text='+text,'_blank','noopener');
-    };
-    document.getElementById('modal-share').onclick=function(){
-      var text=current.title+' at '+current.company+'\n'+(current.salary||'')+' · '+current.loc+'\nVia VitiWork';
-      if(navigator.share) navigator.share({title:current.title,text:text}).catch(function(){});
-      else if(navigator.clipboard) navigator.clipboard.writeText(text).then(function(){toast2('Copied');});
-    };
-    var saveBtn=document.getElementById('modal-save');
-    if(saveBtn){
-      var saved=new Set();
-      try{ saved=new Set(JSON.parse(localStorage.getItem('vw_prod_saved')||'[]')); }catch(e){}
-      saveBtn.textContent=saved.has(current.id)?'Saved':'Save';
-      saveBtn.onclick=function(){
-        var session=null; try{ session=JSON.parse(localStorage.getItem('vw_prod_session')||'null'); }catch(e){}
-        if(!session){ toast2('Sign in to save jobs'); document.getElementById('account').scrollIntoView({behavior:'smooth'}); return; }
-        if(saved.has(current.id)) saved.delete(current.id); else saved.add(current.id);
-        localStorage.setItem('vw_prod_saved', JSON.stringify(Array.from(saved)));
-        saveBtn.textContent=saved.has(current.id)?'Saved':'Save';
-        toast2(saved.has(current.id)?'Saved':'Removed');
-      };
-    }
-  }
-
-  function paint(){
-    var jobs=allJobs();
-    var q=((document.getElementById('q')||{}).value||'').trim().toLowerCase();
-    var lq=((document.getElementById('q-loc')||{}).value||'').trim().toLowerCase();
-    var list=jobs.filter(function(j){
-      var cOk=activeCat==='All'||j.cat===activeCat;
-      var lOk=!lq||String(j.loc||'').toLowerCase().indexOf(lq)!==-1;
-      var blob=[j.title,j.company,j.cat,j.loc,j.summary,j.desc,j.type,(j.requirements||[]).join(' ')].join(' ').toLowerCase();
-      return cOk&&lOk&&(!q||blob.indexOf(q)!==-1);
-    });
-    var grid=document.getElementById('job-grid');
-    var count=document.getElementById('job-count');
-    if(count) count.textContent=list.length+(list.length===1?' role':' roles');
-    if(!grid) return;
-    if(!list.length){
-      grid.innerHTML='<div class="list-empty"><h3>No roles match</h3><p>Try another keyword or any place in Fiji.</p></div>';
-      return;
-    }
-    grid.innerHTML=list.map(function(j){
-      var pay=j.salary&&j.salary!=='Pay on enquiry'?j.salary:'';
-      var when=j.posted||'';
-      return '<button type="button" class="job" data-id="'+esc(j.id)+'"><div><p class="job-title">'+esc(j.title)+'</p><p class="job-co">'+esc(j.company)+(pay?' · '+esc(pay):'')+'</p></div><p class="job-meta">'+esc(j.loc)+' · '+esc(j.type)+(when?'<br>'+esc(when):'')+'</p></button>';
-    }).join('');
-    grid.querySelectorAll('.job').forEach(function(b){ b.onclick=function(){ openJobFull(b.getAttribute('data-id')); }; });
-  }
-
-  function renderChips(){
-    var row=document.getElementById('filters');
-    if(!row) return;
-    var cats=['All','Hospitality','Retail','Construction','Agriculture','BPO','IT','Office','Drivers','Tourism','Trades','Other'];
-    row.innerHTML=cats.map(function(c){
-      return '<button type="button" class="fchip '+(activeCat===c?'on':'')+'" data-cat="'+c+'">'+c+'</button>';
-    }).join('');
-    row.querySelectorAll('[data-cat]').forEach(function(b){
-      b.onclick=function(){ activeCat=b.getAttribute('data-cat'); renderChips(); paint(); };
-    });
-  }
-
-  function wire(){
-    renderChips();
-    paint();
-    var qg=document.getElementById('q-go');
-    if(qg) qg.addEventListener('click', function(){ paint(); document.getElementById('roles').scrollIntoView({behavior:'smooth',block:'start'}); });
-    ['q','q-loc'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); paint(); } });
-    });
-  }
-
-  var pf=document.getElementById('post-form');
-  if(pf && document.getElementById('p-summary')){
-    pf.addEventListener('submit', function(e){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      var session=null; try{ session=JSON.parse(localStorage.getItem('vw_prod_session')||'null'); }catch(err){}
-      if(!session){ toast2('Sign in to post a job'); document.getElementById('account').scrollIntoView({behavior:'smooth'}); return false; }
-      function v(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
-      var title=v('p-title'), company=v('p-company'), loc=v('p-loc'), phone=v('p-phone');
-      var summary=v('p-summary'), resp=lines(v('p-resp')), req=lines(v('p-req'));
-      if(!title||!company||!loc||!phone||!summary||!resp.length||!req.length){
-        toast2('Need title, company, location, WhatsApp, summary, responsibilities, and requirements');
-        return false;
-      }
-      if(!/^\+?[\d\s-]{8,}$/.test(phone)){ toast2('Valid WhatsApp number needed'); return false; }
-      var benefits=lines(v('p-benefits'));
-      if(document.getElementById('p-housing')&&document.getElementById('p-housing').checked) benefits.push('Housing or meals included');
-      var job={
-        id:'u'+Date.now(), title:title, company:company, loc:loc,
-        salary:v('p-pay')||'Pay on enquiry',
-        cat:document.getElementById('p-cat').value,
-        type:document.getElementById('p-type').value,
-        hours:v('p-hours'), start:v('p-start'),
-        summary:summary, responsibilities:resp, requirements:req,
-        preferred:lines(v('p-pref')), benefits:benefits,
-        phone:phone.replace(/\D/g,''), posted:'Just now',
-        desc:summary,
-        note:(document.getElementById('p-citizen')&&document.getElementById('p-citizen').checked)?'Fijian citizenship required.':'',
-        owner:session.id
-      };
-      var p=getPosts(); p.unshift(job); localStorage.setItem('vw_prod_posts', JSON.stringify(p));
-      toast2('Job posted with full listing details');
-      location.hash='#roles';
-      location.reload();
-      return false;
-    }, true);
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', wire);
-  else setTimeout(wire, 40);
-})();
-</script>
-
+  </script>
 </body>
 </html>
